@@ -29,17 +29,38 @@ let selectedId = "";
 export default function data(dt, onAceptarClick) {
   return {
     columns: [
+      { Header: "Status", accessor: "status", align: "center" },
+      { Header: "Solicitud creada", accessor: "solicitud_creada", align: "center" },
+      { Header: "Solicitud terminada", accessor: "solicitud_terminada", align: "center" },
       { Header: "ID", accessor: "id", width: "35%", align: "left" },
       { Header: "Autor", accessor: "autor", width: "35%", align: "left" },
       { Header: "Título documento", accessor: "titulo_documento", align: "left" },
       { Header: "Email", accessor: "email", align: "center" },
       { Header: "Link", accessor: "link", align: "center" },
-      { Header: "Acción 1", accessor: "accion_1", align: "center" },
-      { Header: "Acción 2", accessor: "accion_2", align: "center" },
-      { Header: "Acción 3", accessor: "accion_3", align: "center" },
+      { Header: "Notas", accessor: "notas", align: "center" },
     ],
 
     rows: dt.map((el) => ({
+      status: (
+        <MDBox ml={-1}>
+          <MDBadge
+            badgeContent={el.ApprovalStatus}
+            color={el.ApprovalStatus === "Aceptada" ? "success" : "error"}
+            variant="gradient"
+            size="sm"
+          />
+        </MDBox>
+      ),
+      solicitud_creada: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          {el.CreatedAt}
+        </MDTypography>
+      ),
+      solicitud_terminada: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          {el.EndedAt}
+        </MDTypography>
+      ),
       id: (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
           {el._id}
@@ -71,7 +92,7 @@ export default function data(dt, onAceptarClick) {
           {el.Link}
         </MDTypography>
       ),
-      accion_1: (
+      notas: (
         <MDButton
           color={"info"}
           variant={"contained"}
@@ -82,37 +103,7 @@ export default function data(dt, onAceptarClick) {
           }}
         >
           <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
-            Agregar
-          </MDTypography>
-        </MDButton>
-      ),
-      accion_2: (
-        <MDButton
-          color={"success"}
-          variant={"contained"}
-          onClick={() => {
-            statusSolicitud.id = el._id;
-            statusSolicitud.status = "Aprovada";
-            onAceptarClick();
-          }}
-        >
-          <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
-            Aceptar
-          </MDTypography>
-        </MDButton>
-      ),
-      accion_3: (
-        <MDButton
-          color={"error"}
-          variant={"contained"}
-          onClick={() => {
-            statusSolicitud.id = el._id;
-            statusSolicitud.status = "Rechazada";
-            onAceptarClick();
-          }}
-        >
-          <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
-            Rechazar
+            Notas
           </MDTypography>
         </MDButton>
       ),

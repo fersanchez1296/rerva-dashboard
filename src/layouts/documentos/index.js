@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { useGetSolicitudesQuery } from "api/api.slice";
+import { useGetDocumentsQuery } from "api/api.slice";
 import { Spiner } from "components/Spiner/Spiner";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -10,28 +10,12 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
-import authorsTableData from "layouts/tables/data/authorsTableData";
-//socket Io
-import io from "socket.io-client";
+import documentosTableData from "layouts/documentos/data/documentosTableData";
 //screen dialog
 import { ScreenDialog } from "components/ScreenDialog/ScreenDialog";
-//conexión Socket Io
-const socket = io("http://localhost:4001");
-function Tables() {
-  let dt = [{}];
-  const { data, isLoading } = useGetSolicitudesQuery();
+function Documentos() {
+  const { data: dt, isLoading } = useGetDocumentsQuery();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  React.useEffect(() => {
-    // Manejar eventos de actualización desde el servidor
-    socket.on("datosActualizados", (newData) => {
-      dt = newData;
-      console.log(newData);
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
   let emptyInfo = {
     _id: 0,
     Autor: "",
@@ -46,13 +30,10 @@ function Tables() {
     return <Spiner />;
   }
 
-  if (!data) {
+  if (!dt) {
     return <div>No data available.</div>;
   }
-  dt = data;
-  const handleClickActualizar = () => {
-    socket.emit("actualizarDatos");
-  };
+
   const handleAceptarClick = () => {
     setIsDialogOpen(true);
   };
@@ -60,7 +41,7 @@ function Tables() {
     setIsDialogOpen(false);
   };
 
-  const { columns, rows, solicitudStatus } = authorsTableData(dt, handleAceptarClick);
+  const { columns, rows, solicitudStatus } = documentosTableData(dt, handleAceptarClick);
   const objetoEncontrado = { ...dt.find((objeto) => objeto._id === solicitudStatus.id) };
   if (objetoEncontrado !== undefined) {
     objetoEncontrado.ApprovalStatus = solicitudStatus.status;
@@ -76,7 +57,15 @@ function Tables() {
           pb={3}
           style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
         >
-          <MDButton color={"warning"} variant={"contained"} onClick={handleClickActualizar}>
+          <MDButton
+            color={"success"}
+            variant={"contained"}
+            onClick={() => {
+              statusSolicitud.id = el._id;
+              statusSolicitud.status = "Rechazada";
+              onAceptarClick();
+            }}
+          >
             <MDTypography
               component="a"
               href="#"
@@ -84,17 +73,28 @@ function Tables() {
               color="white"
               fontWeight="medium"
             >
-              Actualizar Solicitudes
+              Agregar Nuevo Documento
             </MDTypography>
           </MDButton>
-          <MDBox>
-            <MDTypography component="div" variant="caption" color="dark" fontWeight="medium">
-              Última vez actualizado
+          <MDButton
+            color={"warning"}
+            variant={"contained"}
+            onClick={() => {
+              statusSolicitud.id = el._id;
+              statusSolicitud.status = "Rechazada";
+              onAceptarClick();
+            }}
+          >
+            <MDTypography
+              component="a"
+              href="#"
+              variant="caption"
+              color="white"
+              fontWeight="medium"
+            >
+              Actualizar Documentos
             </MDTypography>
-            <MDTypography component="div" variant="caption" color="dark" fontWeight="medium">
-              {Date()}
-            </MDTypography>
-          </MDBox>
+          </MDButton>
         </MDBox>
         <MDBox pt={6} pb={3}>
           <Grid container spacing={6}>
@@ -111,7 +111,7 @@ function Tables() {
                   coloredShadow="info"
                 >
                   <MDTypography variant="h6" color="white">
-                    Solicitudes
+                    Documentos en la Base de Datos
                   </MDTypography>
                 </MDBox>
                 <MDBox pt={3}>
@@ -139,4 +139,4 @@ function Tables() {
   );
 }
 
-export default Tables;
+export default Documentos;

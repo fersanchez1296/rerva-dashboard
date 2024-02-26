@@ -10,28 +10,12 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
-import authorsTableData from "layouts/tables/data/authorsTableData";
-//socket Io
-import io from "socket.io-client";
+import historialTableData from "layouts/historial/data/historialTableData";
 //screen dialog
 import { ScreenDialog } from "components/ScreenDialog/ScreenDialog";
-//conexión Socket Io
-const socket = io("http://localhost:4001");
-function Tables() {
-  let dt = [{}];
-  const { data, isLoading } = useGetSolicitudesQuery();
+function Historial() {
+  const { data: dt, isLoading } = useGetSolicitudesQuery();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  React.useEffect(() => {
-    // Manejar eventos de actualización desde el servidor
-    socket.on("datosActualizados", (newData) => {
-      dt = newData;
-      console.log(newData);
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
   let emptyInfo = {
     _id: 0,
     Autor: "",
@@ -46,13 +30,10 @@ function Tables() {
     return <Spiner />;
   }
 
-  if (!data) {
+  if (!dt) {
     return <div>No data available.</div>;
   }
-  dt = data;
-  const handleClickActualizar = () => {
-    socket.emit("actualizarDatos");
-  };
+
   const handleAceptarClick = () => {
     setIsDialogOpen(true);
   };
@@ -60,7 +41,7 @@ function Tables() {
     setIsDialogOpen(false);
   };
 
-  const { columns, rows, solicitudStatus } = authorsTableData(dt, handleAceptarClick);
+  const { columns, rows, solicitudStatus } = historialTableData(dt, handleAceptarClick);
   const objetoEncontrado = { ...dt.find((objeto) => objeto._id === solicitudStatus.id) };
   if (objetoEncontrado !== undefined) {
     objetoEncontrado.ApprovalStatus = solicitudStatus.status;
@@ -76,7 +57,15 @@ function Tables() {
           pb={3}
           style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
         >
-          <MDButton color={"warning"} variant={"contained"} onClick={handleClickActualizar}>
+          <MDButton
+            color={"warning"}
+            variant={"contained"}
+            onClick={() => {
+              statusSolicitud.id = el._id;
+              statusSolicitud.status = "Rechazada";
+              onAceptarClick();
+            }}
+          >
             <MDTypography
               component="a"
               href="#"
@@ -84,17 +73,9 @@ function Tables() {
               color="white"
               fontWeight="medium"
             >
-              Actualizar Solicitudes
+              Actualizar Historial
             </MDTypography>
           </MDButton>
-          <MDBox>
-            <MDTypography component="div" variant="caption" color="dark" fontWeight="medium">
-              Última vez actualizado
-            </MDTypography>
-            <MDTypography component="div" variant="caption" color="dark" fontWeight="medium">
-              {Date()}
-            </MDTypography>
-          </MDBox>
         </MDBox>
         <MDBox pt={6} pb={3}>
           <Grid container spacing={6}>
@@ -111,7 +92,7 @@ function Tables() {
                   coloredShadow="info"
                 >
                   <MDTypography variant="h6" color="white">
-                    Solicitudes
+                    Historial de Solicitudes
                   </MDTypography>
                 </MDBox>
                 <MDBox pt={3}>
@@ -139,4 +120,4 @@ function Tables() {
   );
 }
 
-export default Tables;
+export default Historial;

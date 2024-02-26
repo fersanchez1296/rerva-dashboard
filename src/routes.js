@@ -38,6 +38,8 @@ Coded by www.creative-tim.com
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
+import Historial from "layouts/historial";
+import Documentos from "layouts/documentos";
 import Billing from "layouts/billing";
 import RTL from "layouts/rtl";
 import Notifications from "layouts/notifications";
@@ -62,7 +64,7 @@ const routes = [
     name: "Solicitudes",
     key: "solicitudes",
     icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/Solicitudes",
+    route: "/solicitudes",
     component: <Tables />,
   },
   {
@@ -70,13 +72,21 @@ const routes = [
     name: "Historial",
     key: "historial",
     icon: <Icon fontSize="small">history</Icon>,
-    route: "/tables",
-    component: <Tables />,
+    route: "/historial",
+    component: <Historial />,
   },
   {
     type: "collapse",
     name: "Documentos",
     key: "documentos",
+    icon: <Icon fontSize="small">grading</Icon>,
+    route: "/documentos",
+    component: <Documentos />,
+  },
+  {
+    type: "collapse",
+    name: "Notificaciones ejemplos",
+    key: "notificaciones",
     icon: <Icon fontSize="small">grading</Icon>,
     route: "/notifications",
     component: <Notifications />,
