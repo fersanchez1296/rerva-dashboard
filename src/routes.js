@@ -62,7 +62,7 @@ const routes = [
     name: "Solicitudes",
     key: "solicitudes",
     icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/tables",
+    route: "/Solicitudes",
     component: <Tables />,
   },
   {
