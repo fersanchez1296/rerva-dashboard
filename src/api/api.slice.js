@@ -7,14 +7,14 @@ export const apiSlice = createApi({
     //baseUrl: "https://rerva-backend-104f4d2354cf.herokuapp.com/api/",
     baseUrl: "http://localhost:4000/api/",
   }),
-  // baseUrl: 'https://localhost:4000/api/'}),
-
+  tagTypes: ["Solicitudes"],
   endpoints: (builder) => ({
     getSolicitudes: builder.query({
       query: () => ({
         url: `/getSolicitudes`,
         method: "GET",
       }),
+      providesTags: ["Solicitudes"],
     }),
     updateSolicitud: builder.mutation({
       query: ({ id, data }) => ({
@@ -22,6 +22,7 @@ export const apiSlice = createApi({
         body: data,
         method: "PUT",
       }),
+      invalidatesTags: ["Solicitudes"],
     }),
     getDocuments: builder.query({
       query: () => ({
@@ -30,7 +31,7 @@ export const apiSlice = createApi({
       }),
     }),
   }),
-  keepUnusedDataFor: 300,
+  //keepUnusedDataFor: 300,
 });
 
 export const { useGetSolicitudesQuery, useUpdateSolicitudMutation, useGetDocumentsQuery } =

@@ -20,26 +20,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
   const [updateSolicitud, { data: updateResult }] = useUpdateSolicitudMutation();
-  let mensajeAceptado = `Estimado ${
-    objeto.Autor ? objeto.Autor.toUpperCase() : objeto.Autor
-  } nos complace informarle que tras una exaustiva revición
-de su informacion, el documento titulado " ${
-    objeto["Título"] ? objeto["Título"].toUpperCase() : objeto["Título"]
-  } ", escrito por ${objeto.Autor ? objeto.Autor.toUpperCase() : objeto.Autor} ha sido ACEPTADO y 
-partir de este momento forma parte de nuestro catalago.
-¡Gracias por contribuir con nosotros!
-Atentamente: El equipo de RERVA- CUValles`;
-
-  let mensajeRechazado = `Estimado ${
-    objeto.Autor ? objeto.Autor.toUpperCase() : objeto.Autor
-  } nos damos a la lamentable tarea informarle que tras una exaustiva revición
-de su informacion, el documento titulado ${
-    objeto["Título"] ? objeto["Título"].toUpperCase() : objeto["Título"]
-  }, escrito por ${objeto.Autor ? objeto.Autor.toUpperCase() : objeto.Autor} ha sido RECHAZADO.
-¡Esperemos que tras corregir los puntos expuestos,muy pronto tu trabajo se encuentre en nuestra base de datos!
-Atentamente: El equipo de RERVA- CUValles`;
-
-  const mensaje = objeto.ApprovalStatus === "Aprovada" ? mensajeAceptado : mensajeRechazado;
 
   const handleEnviar = () => {
     const solicitud = JSON.parse(JSON.stringify(objeto));
@@ -47,7 +27,7 @@ Atentamente: El equipo de RERVA- CUValles`;
     solicitud.DocumentStatus = "Finalizada";
     (async () => {
       const result = await updateSolicitud({ data: solicitud, id: solicitud._id });
-      console.log(result);
+      handleAceptarCerrar();
     })();
   };
 
@@ -88,14 +68,14 @@ Atentamente: El equipo de RERVA- CUValles`;
             <ListItemText primary="ID Solicitud:" secondary={objeto._id} />
           </ListItemButton>
           <ListItemButton>
-            <ListItemText primary="Mensaje:" />
+            <ListItemText primary="Notas:" />
           </ListItemButton>
           <TextField
             id="outlined-multiline-static"
             label="Escribe el mensaje"
             multiline
             rows={12}
-            defaultValue={objeto.ApprovalStatus === "Aprovada" ? mensajeAceptado : mensajeRechazado}
+            defaultValue="Notas al Autor"
             sx={{ width: "100%" }}
           />
         </List>

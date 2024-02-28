@@ -1,5 +1,4 @@
-import React, { useMemo, useState } from "react";
-import { useGetSolicitudesQuery } from "api/api.slice";
+import React, { useState, useEffect } from "react";
 import { Spiner } from "components/Spiner/Spiner";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -11,27 +10,24 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 import authorsTableData from "layouts/tables/data/authorsTableData";
-//socket Io
-import io from "socket.io-client";
-//screen dialog
 import { ScreenDialog } from "components/ScreenDialog/ScreenDialog";
-//conexión Socket Io
-const socket = io("http://localhost:4001");
-function Tables() {
-  let dt = [{}];
-  const { data, isLoading } = useGetSolicitudesQuery();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  React.useEffect(() => {
-    // Manejar eventos de actualización desde el servidor
-    socket.on("datosActualizados", (newData) => {
-      dt = newData;
-      console.log(newData);
-    });
+import { useGetSolicitudesQuery } from "api/api.slice";
 
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
+function Tables() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { data: dt, isLoading, refetch } = useGetSolicitudesQuery();
+  const handleClickActualizar = () => {
+    refetch();
+  };
+
+  const handleAceptarClick = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleAceptarCerrar = () => {
+    setIsDialogOpen(false);
+  };
+
   let emptyInfo = {
     _id: 0,
     Autor: "",
@@ -46,27 +42,20 @@ function Tables() {
     return <Spiner />;
   }
 
-  if (!data) {
+  if (!dt) {
     return <div>No data available.</div>;
   }
-  dt = data;
-  const handleClickActualizar = () => {
-    socket.emit("actualizarDatos");
-  };
-  const handleAceptarClick = () => {
-    setIsDialogOpen(true);
-  };
-  const handleAceptarCerrar = () => {
-    setIsDialogOpen(false);
-  };
 
   const { columns, rows, solicitudStatus } = authorsTableData(dt, handleAceptarClick);
-  const objetoEncontrado = { ...dt.find((objeto) => objeto._id === solicitudStatus.id) };
+  const objetoEncontrado = {
+    ...dt.find((objeto) => objeto._id === solicitudStatus.id),
+  };
   if (objetoEncontrado !== undefined) {
     objetoEncontrado.ApprovalStatus = solicitudStatus.status;
   } else {
     objetoEncontrado = emptyInfo;
   }
+
   return (
     <>
       <DashboardLayout>
@@ -74,16 +63,14 @@ function Tables() {
         <MDBox
           pt={6}
           pb={3}
-          style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
         >
           <MDButton color={"warning"} variant={"contained"} onClick={handleClickActualizar}>
-            <MDTypography
-              component="a"
-              href="#"
-              variant="caption"
-              color="white"
-              fontWeight="medium"
-            >
+            <MDTypography component="a" variant="caption" color="white" fontWeight="medium">
               Actualizar Solicitudes
             </MDTypography>
           </MDButton>
