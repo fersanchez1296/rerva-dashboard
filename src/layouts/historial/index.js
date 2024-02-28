@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { useGetSolicitudesQuery } from "api/api.slice";
+import { useGetHistorialQuery } from "api/api.slice";
 import { Spiner } from "components/Spiner/Spiner";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -14,7 +14,7 @@ import historialTableData from "layouts/historial/data/historialTableData";
 //screen dialog
 import { ScreenDialog } from "components/ScreenDialog/ScreenDialog";
 function Historial() {
-  const { data: dt, isLoading } = useGetSolicitudesQuery();
+  const { data: dt, isLoading, refetch } = useGetHistorialQuery();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   let emptyInfo = {
     _id: 0,
@@ -33,6 +33,10 @@ function Historial() {
   if (!dt) {
     return <div>No data available.</div>;
   }
+
+  const handleClickActualizar = () => {
+    refetch();
+  };
 
   const handleAceptarClick = () => {
     setIsDialogOpen(true);
@@ -55,27 +59,25 @@ function Historial() {
         <MDBox
           pt={6}
           pb={3}
-          style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
         >
-          <MDButton
-            color={"warning"}
-            variant={"contained"}
-            onClick={() => {
-              statusSolicitud.id = el._id;
-              statusSolicitud.status = "Rechazada";
-              onAceptarClick();
-            }}
-          >
-            <MDTypography
-              component="a"
-              href="#"
-              variant="caption"
-              color="white"
-              fontWeight="medium"
-            >
-              Actualizar Historial
+          <MDButton color={"warning"} variant={"contained"} onClick={handleClickActualizar}>
+            <MDTypography component="a" variant="caption" color="white" fontWeight="medium">
+              Actualizar Solicitudes
             </MDTypography>
           </MDButton>
+          <MDBox>
+            <MDTypography component="div" variant="caption" color="dark" fontWeight="medium">
+              Última vez actualizado
+            </MDTypography>
+            <MDTypography component="div" variant="caption" color="dark" fontWeight="medium">
+              {Date()}
+            </MDTypography>
+          </MDBox>
         </MDBox>
         <MDBox pt={6} pb={3}>
           <Grid container spacing={6}>

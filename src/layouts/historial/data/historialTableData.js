@@ -27,6 +27,31 @@ import team2 from "assets/images/team-2.jpg";
 let statusSolicitud = {};
 let selectedId = "";
 export default function data(dt, onAceptarClick) {
+  const renderButtonIfNotas = (value) => {
+    console.log(value);
+    if (value === "Sin Notas") {
+      return (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          Sin Notas
+        </MDTypography>
+      );
+    } else {
+      return (
+        <MDButton
+          color={"info"}
+          variant={"contained"}
+          onClick={() => {
+            "";
+            onAceptarClick();
+          }}
+        >
+          <MDTypography component="a" variant="caption" color="white" fontWeight="medium">
+            Ver Notas
+          </MDTypography>
+        </MDButton>
+      );
+    }
+  };
   return {
     columns: [
       { Header: "Status", accessor: "status", align: "center" },
@@ -45,7 +70,7 @@ export default function data(dt, onAceptarClick) {
         <MDBox ml={-1}>
           <MDBadge
             badgeContent={el.ApprovalStatus}
-            color={el.ApprovalStatus === "Aceptada" ? "success" : "error"}
+            color={el.ApprovalStatus === "Aprovada" ? "success" : "error"}
             variant="gradient"
             size="sm"
           />
@@ -92,21 +117,7 @@ export default function data(dt, onAceptarClick) {
           {el.Link}
         </MDTypography>
       ),
-      notas: (
-        <MDButton
-          color={"info"}
-          variant={"contained"}
-          onClick={() => {
-            statusSolicitud.id = el._id;
-            statusSolicitud.status = "Rechazada";
-            onAceptarClick();
-          }}
-        >
-          <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
-            Notas
-          </MDTypography>
-        </MDButton>
-      ),
+      notas: renderButtonIfNotas(el.Notas),
     })),
 
     solicitudStatus: statusSolicitud,

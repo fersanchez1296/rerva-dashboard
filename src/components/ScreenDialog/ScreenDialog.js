@@ -19,12 +19,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
-  const [updateSolicitud, { data: updateResult }] = useUpdateSolicitudMutation();
-
+  const [updateSolicitud] = useUpdateSolicitudMutation();
+  const [notas, setNotas] = React.useState("Sin Notas");
+  const handleChangeNotas = (value) => {
+    setNotas(value);
+  };
   const handleEnviar = () => {
     const solicitud = JSON.parse(JSON.stringify(objeto));
     solicitud.EndedAt = new Date();
     solicitud.DocumentStatus = "Finalizada";
+    solicitud.Notas = notas;
     (async () => {
       const result = await updateSolicitud({ data: solicitud, id: solicitud._id });
       handleAceptarCerrar();
@@ -75,7 +79,9 @@ export const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
             label="Escribe el mensaje"
             multiline
             rows={12}
-            defaultValue="Notas al Autor"
+            value={notas}
+            onChange={(e) => handleChangeNotas(e.target.value.toUpperCase())}
+            defaultValue={notas}
             sx={{ width: "100%" }}
           />
         </List>
