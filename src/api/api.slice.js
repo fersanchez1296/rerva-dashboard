@@ -3,9 +3,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    //baseUrl: "http://148.202.89.67:4000/api/",
+    baseUrl: "http://148.202.89.67:4000/api/",
     //baseUrl: "https://rerva-backend-104f4d2354cf.herokuapp.com/api/",
-    baseUrl: "http://localhost:4000/api/",
+    //baseUrl: "http://localhost:4000/api/",
   }),
   tagTypes: ["Solicitudes", "Historial"],
   endpoints: (builder) => ({
