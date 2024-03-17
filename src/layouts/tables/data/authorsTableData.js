@@ -16,17 +16,12 @@ Coded by www.creative-tim.com
 */
 import React from "react";
 // Material Dashboard 2 React components
-import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
-import MDAvatar from "components/MDAvatar";
-import MDBadge from "components/MDBadge";
 
 // Images
-import team2 from "assets/images/team-2.jpg";
 let statusSolicitud = {};
-let selectedId = "";
-export default function data(dt, onAceptarClick) {
+export default function data(dt, onAceptarClick, openAddDocument, openSearchDocument) {
   return {
     columns: [
       { Header: "ID", accessor: "id", width: "35%", align: "left" },
@@ -37,6 +32,7 @@ export default function data(dt, onAceptarClick) {
       { Header: "Acción 1", accessor: "accion_1", align: "center" },
       { Header: "Acción 2", accessor: "accion_2", align: "center" },
       { Header: "Acción 3", accessor: "accion_3", align: "center" },
+      { Header: "Acción 4", accessor: "accion_4", align: "center" },
     ],
 
     rows: dt.map((el) => ({
@@ -73,12 +69,23 @@ export default function data(dt, onAceptarClick) {
       ),
       accion_1: (
         <MDButton
+          color={"primary"}
+          variant={"contained"}
+          onClick={() => {
+            openSearchDocument();
+          }}
+        >
+          <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
+            Buscar
+          </MDTypography>
+        </MDButton>
+      ),
+      accion_2: (
+        <MDButton
           color={"info"}
           variant={"contained"}
           onClick={() => {
-            statusSolicitud.id = el._id;
-            statusSolicitud.status = "Rechazada";
-            onAceptarClick();
+            openAddDocument();
           }}
         >
           <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
@@ -86,7 +93,7 @@ export default function data(dt, onAceptarClick) {
           </MDTypography>
         </MDButton>
       ),
-      accion_2: (
+      accion_3: (
         <MDButton
           color={"success"}
           variant={"contained"}
@@ -101,7 +108,7 @@ export default function data(dt, onAceptarClick) {
           </MDTypography>
         </MDButton>
       ),
-      accion_3: (
+      accion_4: (
         <MDButton
           color={"error"}
           variant={"contained"}

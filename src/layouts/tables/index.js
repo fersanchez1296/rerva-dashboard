@@ -11,10 +11,14 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 import authorsTableData from "layouts/tables/data/authorsTableData";
 import { ScreenDialog } from "components/ScreenDialog/ScreenDialog";
+import { AddDocument } from "components/AddDocument/AddDocument";
+import { SearchDocument } from "components/SearchDocument/SearchDocument";
 import { useGetSolicitudesQuery } from "api/api.slice";
 
 function Tables() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isAddDocumentOpen, setIsAddDocumentOpen] = useState(false);
+  const [isSearchDocumentOpen, setIsSearchDocumentOpen] = useState(false);
   const { data: dt, isLoading, refetch } = useGetSolicitudesQuery();
   const handleClickActualizar = () => {
     refetch();
@@ -26,6 +30,22 @@ function Tables() {
 
   const handleAceptarCerrar = () => {
     setIsDialogOpen(false);
+  };
+
+  const openAddDocument = () => {
+    setIsAddDocumentOpen(true);
+  };
+
+  const cerrarAddDocument = () => {
+    setIsAddDocumentOpen(false);
+  };
+
+  const openSearchDocument = () => {
+    setIsSearchDocumentOpen(true);
+  };
+
+  const cerrarSearchDocument = () => {
+    setIsSearchDocumentOpen(false);
   };
 
   let emptyInfo = {
@@ -46,7 +66,13 @@ function Tables() {
     return <div>No data available.</div>;
   }
 
-  const { columns, rows, solicitudStatus } = authorsTableData(dt, handleAceptarClick);
+  const { columns, rows, solicitudStatus } = authorsTableData(
+    dt,
+    handleAceptarClick,
+    openAddDocument,
+    openSearchDocument
+  );
+  console.log(solicitudStatus);
   const objetoEncontrado = {
     ...dt.find((objeto) => objeto._id === solicitudStatus.id),
   };
@@ -120,6 +146,16 @@ function Tables() {
       <ScreenDialog
         openBool={isDialogOpen}
         handleAceptarCerrar={handleAceptarCerrar}
+        objeto={objetoEncontrado === undefined ? emptyInfo : objetoEncontrado}
+      />
+      <AddDocument
+        openBool={isAddDocumentOpen}
+        handleAceptarCerrar={cerrarAddDocument}
+        objeto={objetoEncontrado === undefined ? emptyInfo : objetoEncontrado}
+      />
+      <SearchDocument
+        openBool={isSearchDocumentOpen}
+        handleAceptarCerrar={cerrarSearchDocument}
         objeto={objetoEncontrado === undefined ? emptyInfo : objetoEncontrado}
       />
     </>

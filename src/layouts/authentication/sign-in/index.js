@@ -42,10 +42,6 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
 function Basic() {
-  const [rememberMe, setRememberMe] = useState(false);
-
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
-
   return (
     <BasicLayout image={bgImage}>
       <Card>

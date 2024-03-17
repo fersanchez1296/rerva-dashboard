@@ -19,16 +19,14 @@ import React from "react";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
-import MDAvatar from "components/MDAvatar";
 import MDBadge from "components/MDBadge";
 
-// Images
-import team2 from "assets/images/team-2.jpg";
-let statusSolicitud = {};
-let selectedId = "";
-export default function data(dt, onAceptarClick) {
+export default function data(dt, onAceptarClick, setDocumentNote) {
+  const handleAceptarClick = (value) => {
+    setDocumentNote(value);
+    onAceptarClick();
+  };
   const renderButtonIfNotas = (value) => {
-    console.log(value);
     if (value === "Sin Notas") {
       return (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
@@ -41,8 +39,7 @@ export default function data(dt, onAceptarClick) {
           color={"info"}
           variant={"contained"}
           onClick={() => {
-            "";
-            onAceptarClick();
+            handleAceptarClick(value);
           }}
         >
           <MDTypography component="a" variant="caption" color="white" fontWeight="medium">
@@ -119,7 +116,5 @@ export default function data(dt, onAceptarClick) {
       ),
       notas: renderButtonIfNotas(el.Notas),
     })),
-
-    solicitudStatus: statusSolicitud,
   };
 }

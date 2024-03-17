@@ -11,11 +11,12 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 import historialTableData from "layouts/historial/data/historialTableData";
-//screen dialog
-import { ScreenDialog } from "components/ScreenDialog/ScreenDialog";
+//Notas
+import { Notas } from "components/Notas/Notas";
 function Historial() {
   const { data: dt, isLoading, refetch } = useGetHistorialQuery();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [documentNote, setDocumentNote] = React.useState("");
   let emptyInfo = {
     _id: 0,
     Autor: "",
@@ -45,13 +46,7 @@ function Historial() {
     setIsDialogOpen(false);
   };
 
-  const { columns, rows, solicitudStatus } = historialTableData(dt, handleAceptarClick);
-  const objetoEncontrado = { ...dt.find((objeto) => objeto._id === solicitudStatus.id) };
-  if (objetoEncontrado !== undefined) {
-    objetoEncontrado.ApprovalStatus = solicitudStatus.status;
-  } else {
-    objetoEncontrado = emptyInfo;
-  }
+  const { columns, rows, notas } = historialTableData(dt, handleAceptarClick, setDocumentNote);
   return (
     <>
       <DashboardLayout>
@@ -113,10 +108,10 @@ function Historial() {
         </MDBox>
         <Footer />
       </DashboardLayout>
-      <ScreenDialog
+      <Notas
         openBool={isDialogOpen}
         handleAceptarCerrar={handleAceptarCerrar}
-        objeto={objetoEncontrado === undefined ? emptyInfo : objetoEncontrado}
+        notas={documentNote}
       />
     </>
   );
