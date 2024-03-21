@@ -44,6 +44,14 @@ export const apiSlice = createApi({
       }),
       providesTags: ["Historial"],
     }),
+    busquedas: builder.mutation({
+      query: ({ data }) => ({
+        url: `/Busquedas`,
+        method: "POST",
+        body: data,
+      }),
+      providesTags: ["Busquedas"],
+    }),
   }),
   keepUnusedDataFor: 300,
 });
@@ -53,4 +61,5 @@ export const {
   useUpdateSolicitudMutation,
   useGetDocumentsQuery,
   useGetHistorialQuery,
+  useBusquedasMutation,
 } = apiSlice;

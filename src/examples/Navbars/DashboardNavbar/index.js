@@ -53,7 +53,11 @@ import {
   setOpenConfigurator,
 } from "context";
 
+//API
+import { useBusquedasMutation } from "api/api.slice";
+
 function DashboardNavbar({ absolute, light, isMini }) {
+  const [busqueda, setBusqueda] = useState("");
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
@@ -85,6 +89,9 @@ function DashboardNavbar({ absolute, light, isMini }) {
     // Remove event listener on cleanup
     return () => window.removeEventListener("scroll", handleTransparentNavbar);
   }, [dispatch, fixedNavbar]);
+
+  //api hook
+  const [busquedas] = useBusquedasMutation();
 
   const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
@@ -123,8 +130,18 @@ function DashboardNavbar({ absolute, light, isMini }) {
     },
   });
 
-  const handleBuscar = () => {
-    console.log("hola si funciona");
+  const handleChangeBusqueda = (value) => {
+    setBusqueda(value);
+  };
+
+  const handleBusqueda = async () => {
+    await busquedas({ data: busqueda });
+  };
+
+  const keyPressed = (e) => {
+    if (e.key === "Enter" && busqueda !== "") {
+      handleBusqueda();
+    }
   };
 
   return (
@@ -143,7 +160,8 @@ function DashboardNavbar({ absolute, light, isMini }) {
               <MDInput
                 label="Buscar"
                 placeholder="DOI,Autor o Título"
-                onClick={() => handleBuscar()}
+                onChange={(e) => handleChangeBusqueda(e.target.value)}
+                onKeyPress={(e) => keyPressed(e)}
               />
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
