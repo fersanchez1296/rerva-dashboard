@@ -123,6 +123,10 @@ function DashboardNavbar({ absolute, light, isMini }) {
     },
   });
 
+  const handleBuscar = () => {
+    console.log("hola si funciona");
+  };
+
   return (
     <AppBar
       position={absolute ? "absolute" : navbarType}
@@ -136,7 +140,11 @@ function DashboardNavbar({ absolute, light, isMini }) {
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
             <MDBox pr={1}>
-              <MDInput label="Search here" />
+              <MDInput
+                label="Buscar"
+                placeholder="DOI,Autor o Título"
+                onClick={() => handleBuscar()}
+              />
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
               <Link to="/authentication/sign-in/basic">
