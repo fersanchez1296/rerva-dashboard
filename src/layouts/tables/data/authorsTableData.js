@@ -21,7 +21,8 @@ import MDTypography from "components/MDTypography";
 
 // Images
 let statusSolicitud = {};
-export default function data(dt, onAceptarClick, openAddDocument, openSearchDocument) {
+export default function data(dt, onAceptarClick, handleAceptarClickRechazar) {
+  console.log(dt);
   return {
     columns: [
       { Header: "ID", accessor: "id", width: "35%", align: "left" },
@@ -29,10 +30,9 @@ export default function data(dt, onAceptarClick, openAddDocument, openSearchDocu
       { Header: "Título documento", accessor: "titulo_documento", align: "left" },
       { Header: "Email", accessor: "email", align: "center" },
       { Header: "Link", accessor: "link", align: "center" },
+      { Header: "DOI", accessor: "doi", align: "center" },
       { Header: "Acción 1", accessor: "accion_1", align: "center" },
       { Header: "Acción 2", accessor: "accion_2", align: "center" },
-      { Header: "Acción 3", accessor: "accion_3", align: "center" },
-      { Header: "Acción 4", accessor: "accion_4", align: "center" },
     ],
 
     rows: dt.map((el) => ({
@@ -67,39 +67,18 @@ export default function data(dt, onAceptarClick, openAddDocument, openSearchDocu
           {el.Link}
         </MDTypography>
       ),
+      doi: (
+        <MDTypography component="div" href={el.DOI} variant="caption" fontWeight="medium">
+          {el.DOI}
+        </MDTypography>
+      ),
       accion_1: (
-        <MDButton
-          color={"primary"}
-          variant={"contained"}
-          onClick={() => {
-            openSearchDocument();
-          }}
-        >
-          <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
-            Buscar
-          </MDTypography>
-        </MDButton>
-      ),
-      accion_2: (
-        <MDButton
-          color={"info"}
-          variant={"contained"}
-          onClick={() => {
-            openAddDocument();
-          }}
-        >
-          <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
-            Agregar
-          </MDTypography>
-        </MDButton>
-      ),
-      accion_3: (
         <MDButton
           color={"success"}
           variant={"contained"}
           onClick={() => {
             statusSolicitud.id = el._id;
-            statusSolicitud.status = "Aprovada";
+            statusSolicitud.status = "Solicitud Aprovada";
             onAceptarClick();
           }}
         >
@@ -108,14 +87,14 @@ export default function data(dt, onAceptarClick, openAddDocument, openSearchDocu
           </MDTypography>
         </MDButton>
       ),
-      accion_4: (
+      accion_2: (
         <MDButton
           color={"error"}
           variant={"contained"}
           onClick={() => {
             statusSolicitud.id = el._id;
-            statusSolicitud.status = "Rechazada";
-            onAceptarClick();
+            statusSolicitud.status = "Solicitud Rechazada";
+            handleAceptarClickRechazar();
           }}
         >
           <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">

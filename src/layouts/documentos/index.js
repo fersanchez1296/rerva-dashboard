@@ -12,7 +12,7 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 import documentosTableData from "layouts/documentos/data/documentosTableData";
 //screen dialog
-import { ScreenDialog } from "components/ScreenDialog/ScreenDialog";
+// import { ScreenDialog } from "components/ScreenDialog/ScreenDialog";
 function Documentos() {
   const { data: dt, isLoading } = useGetDocumentsQuery();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -130,11 +130,11 @@ function Documentos() {
         </MDBox>
         <Footer />
       </DashboardLayout>
-      <ScreenDialog
+      {/* <ScreenDialog
         openBool={isDialogOpen}
         handleAceptarCerrar={handleAceptarCerrar}
         objeto={objetoEncontrado === undefined ? emptyInfo : objetoEncontrado}
-      />
+      /> */}
     </>
   );
 }

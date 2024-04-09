@@ -47,8 +47,8 @@ export const apiSlice = createApi({
     busquedas: builder.mutation({
       query: ({ data }) => ({
         url: `/Busquedas`,
-        method: "POST",
         body: data,
+        method: "POST",
       }),
       providesTags: ["Busquedas"],
     }),

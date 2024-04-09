@@ -1,0 +1,103 @@
+[
+    {
+      "nombre": "Alemán",
+      "hablantesNativos": "76 millones",
+      "regionPrincipal": "Alemania, Austria, Suiza"
+    },
+    {
+      "nombre": "Arábigo",
+      "hablantesNativos": "319 millones",
+      "regionPrincipal": "Medio Oriente, África del Norte"
+    },
+    {
+      "nombre": "Bengalí",
+      "hablantesNativos": "228 millones",
+      "regionPrincipal": "Bangladesh, India"
+    },
+    {
+      "nombre": "Chino mandarín",
+      "hablantesNativos": "918 millones",
+      "regionPrincipal": "China, Taiwán, Singapur"
+    },
+    {
+      "nombre": "Coreano",
+      "hablantesNativos": "75 millones",
+      "regionPrincipal": "Corea del Sur, Corea del Norte"
+    },
+    {
+      "nombre": "Español",
+      "hablantesNativos": "460 millones",
+      "regionPrincipal": "España, América Latina"
+    },
+    {
+      "nombre": "Francés",
+      "hablantesNativos": "77 millones",
+      "regionPrincipal": "Francia, Canadá, África"
+    },
+    {
+      "nombre": "Hindi",
+      "hablantesNativos": "341 millones",
+      "regionPrincipal": "India, Nepal"
+    },
+    {
+      "nombre": "Inglés",
+      "hablantesNativos": "379 millones",
+      "regionPrincipal": "Reino Unido, Estados Unidos, Australia, Canadá"
+    },
+    {
+      "nombre": "Japonés",
+      "hablantesNativos": "128 millones",
+      "regionPrincipal": "Japón"
+    },
+    {
+      "nombre": "Javanés",
+      "hablantesNativos": "76 millones",
+      "regionPrincipal": "Indonesia"
+    },
+    {
+      "nombre": "Marathi",
+      "hablantesNativos": "82 millones",
+      "regionPrincipal": "India"
+    },
+    {
+      "nombre": "Portugués",
+      "hablantesNativos": "221 millones",
+      "regionPrincipal": "Brasil, Portugal"
+    },
+    {
+      "nombre": "Punjabi",
+      "hablantesNativos": "92 millones",
+      "regionPrincipal": "India, Pakistán"
+    },
+    {
+      "nombre": "Ruso",
+      "hablantesNativos": "154 millones",
+      "regionPrincipal": "Rusia, Europa del Este"
+    },
+    {
+      "nombre": "Tamil",
+      "hablantesNativos": "75 millones",
+      "regionPrincipal": "India, Sri Lanka"
+    },
+    {
+      "nombre": "Telugu",
+      "hablantesNativos": "82 millones",
+      "regionPrincipal": "India"
+    },
+    {
+      "nombre": "Turco",
+      "hablantesNativos": "79 millones",
+      "regionPrincipal": "Turquía"
+    },
+    {
+      "nombre": "Vietnamita",
+      "hablantesNativos": "75 millones",
+      "regionPrincipal": "Vietnam"
+    },
+    {
+      "nombre": "Wu (Shanghainés)",
+      "hablantesNativos": "83 millones",
+      "regionPrincipal": "China"
+    }
+  ]
+  

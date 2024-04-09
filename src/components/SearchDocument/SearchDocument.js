@@ -15,34 +15,19 @@ import PropTypes from "prop-types";
 import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Unstable_Grid2";
-import { useUpdateSolicitudMutation } from "api/api.slice";
+import DataTable from "examples/Tables/DataTable";
+import busquedasTableData from "components/SearchDocument/data/busquedasTableData";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-import MDInput from "components/MDInput";
-import MDButton from "components/MDButton";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export const SearchDocument = ({ openBool, handleAceptarCerrar, objeto }) => {
-  const [updateSolicitud] = useUpdateSolicitudMutation();
-  const [notas, setNotas] = React.useState("Sin Notas");
-  const handleChangeNotas = (value) => {
-    setNotas(value);
-  };
-  const handleEnviar = () => {
-    const solicitud = JSON.parse(JSON.stringify(objeto));
-    solicitud.EndedAt = new Date();
-    solicitud.DocumentStatus = "Finalizada";
-    solicitud.Notas = notas;
-    (async () => {
-      const result = await updateSolicitud({ data: solicitud, id: solicitud._id });
-      handleAceptarCerrar();
-    })();
-  };
+  const { columns, rows } = busquedasTableData(objeto);
 
   return (
     <React.Fragment>
@@ -65,44 +50,39 @@ export const SearchDocument = ({ openBool, handleAceptarCerrar, objeto }) => {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Cerrar
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleEnviar}>
-              Guardar y enviar
-            </Button>
           </Toolbar>
         </AppBar>
-        <Grid container spacing={2} sx={{ mt: 3 }}>
-          <Grid xs={12} md={6}>
-            <Card>
-              <MDBox
-                variant="gradient"
-                bgColor="info"
-                borderRadius="lg"
-                coloredShadow="info"
-                mx={2}
-                mt={-3}
-                p={2}
-                mb={1}
-                textAlign="center"
-              >
-                <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-                  Buscador
-                </MDTypography>
-              </MDBox>
-              <MDBox pt={4} pb={3} px={3}>
-                <MDBox component="form" role="form">
-                  <MDBox mb={2}>
-                    <MDInput type="text" label="Autor, título, DOI" fullWidth />
-                  </MDBox>
-                  <MDBox mt={4} mb={1}>
-                    <MDButton variant="gradient" color="info" fullWidth>
-                      Buscar
-                    </MDButton>
-                  </MDBox>
+        <MDBox pt={6} pb={3}>
+          <Grid container spacing={6}>
+            <Grid item xs={12}>
+              <Card>
+                <MDBox
+                  mx={2}
+                  mt={-3}
+                  py={3}
+                  px={2}
+                  variant="gradient"
+                  bgColor="info"
+                  borderRadius="lg"
+                  coloredShadow="info"
+                >
+                  <MDTypography variant="h6" color="white">
+                    Documentos relacionados con la búsqueda
+                  </MDTypography>
                 </MDBox>
-              </MDBox>
-            </Card>
+                <MDBox pt={3}>
+                  <DataTable
+                    table={{ columns, rows }}
+                    isSorted={false}
+                    entriesPerPage={false}
+                    showTotalEntries={false}
+                    noEndBorder
+                  />
+                </MDBox>
+              </Card>
+            </Grid>
           </Grid>
-        </Grid>
+        </MDBox>
       </Dialog>
     </React.Fragment>
   );

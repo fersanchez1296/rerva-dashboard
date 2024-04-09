@@ -11,14 +11,12 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 import authorsTableData from "layouts/tables/data/authorsTableData";
 import { ScreenDialog } from "components/ScreenDialog/ScreenDialog";
-import { AddDocument } from "components/AddDocument/AddDocument";
-import { SearchDocument } from "components/SearchDocument/SearchDocument";
+import { RejectScreen } from "components/RejectScreen/RejectScreen";
 import { useGetSolicitudesQuery } from "api/api.slice";
 
 function Tables() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isAddDocumentOpen, setIsAddDocumentOpen] = useState(false);
-  const [isSearchDocumentOpen, setIsSearchDocumentOpen] = useState(false);
+  const [isDialogRejectOpen, setIsRejectDialogOpen] = useState(false);
   const { data: dt, isLoading, refetch } = useGetSolicitudesQuery();
   const handleClickActualizar = () => {
     refetch();
@@ -32,20 +30,12 @@ function Tables() {
     setIsDialogOpen(false);
   };
 
-  const openAddDocument = () => {
-    setIsAddDocumentOpen(true);
+  const handleAceptarClickRechazar = () => {
+    setIsRejectDialogOpen(true);
   };
 
-  const cerrarAddDocument = () => {
-    setIsAddDocumentOpen(false);
-  };
-
-  const openSearchDocument = () => {
-    setIsSearchDocumentOpen(true);
-  };
-
-  const cerrarSearchDocument = () => {
-    setIsSearchDocumentOpen(false);
+  const handleAceptarCerrarRechazar = () => {
+    setIsRejectDialogOpen(false);
   };
 
   let emptyInfo = {
@@ -69,10 +59,8 @@ function Tables() {
   const { columns, rows, solicitudStatus } = authorsTableData(
     dt,
     handleAceptarClick,
-    openAddDocument,
-    openSearchDocument
+    handleAceptarClickRechazar
   );
-  console.log(solicitudStatus);
   const objetoEncontrado = {
     ...dt.find((objeto) => objeto._id === solicitudStatus.id),
   };
@@ -81,7 +69,6 @@ function Tables() {
   } else {
     objetoEncontrado = emptyInfo;
   }
-
   return (
     <>
       <DashboardLayout>
@@ -148,14 +135,9 @@ function Tables() {
         handleAceptarCerrar={handleAceptarCerrar}
         objeto={objetoEncontrado === undefined ? emptyInfo : objetoEncontrado}
       />
-      <AddDocument
-        openBool={isAddDocumentOpen}
-        handleAceptarCerrar={cerrarAddDocument}
-        objeto={objetoEncontrado === undefined ? emptyInfo : objetoEncontrado}
-      />
-      <SearchDocument
-        openBool={isSearchDocumentOpen}
-        handleAceptarCerrar={cerrarSearchDocument}
+      <RejectScreen
+        openBool={isDialogRejectOpen}
+        handleAceptarCerrar={handleAceptarCerrarRechazar}
         objeto={objetoEncontrado === undefined ? emptyInfo : objetoEncontrado}
       />
     </>

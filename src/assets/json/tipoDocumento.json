@@ -1,0 +1,104 @@
+[
+  {
+    "tipo": "Abstract"
+  },
+  {
+    "tipo": "Artículo"
+  },
+  {
+    "tipo": "Artículo informativo"
+  },
+  {
+    "tipo": "Capítulo de libro"
+  },
+  {
+    "tipo": "Capítulo de Libro"
+  },
+  {
+    "tipo": "CD"
+  },
+  {
+    "tipo": "Conferencia"
+  },
+  {
+    "tipo": "Crónica"
+  },
+  {
+    "tipo": "Documento de trabajo"
+  },
+  {
+    "tipo": "Documentación técnica"
+  },
+  {
+    "tipo": "Informe de Servicio Social"
+  },
+  {
+    "tipo": "Libro"
+  },
+  {
+    "tipo": "Memoria de congreso"
+  },
+  {
+    "tipo": "Memoria del proyecto"
+  },
+  {
+    "tipo": "Monografía"
+  },
+  {
+    "tipo": "Nota científica"
+  },
+  {
+    "tipo": "Ponencia"
+  },
+  {
+    "tipo": "Presentación"
+  },
+  {
+    "tipo": "Proyecto de Aplicación Profesional"
+  },
+  {
+    "tipo": "Paquete didáctico"
+  },
+  {
+    "tipo": "Reporte"
+  },
+  {
+    "tipo": "Reporte técnico"
+  },
+  {
+    "tipo": "Reseña de libro"
+  },
+  {
+    "tipo": "Reseña de Libro"
+  },
+  {
+    "tipo": "Resumen de Ponencia"
+  },
+  {
+    "tipo": "Resumen de Póster"
+  },
+  {
+    "tipo": "Revista"
+  },
+  {
+    "tipo": "Tesis Doctorado"
+  },
+  {
+    "tipo": "Tesis especialidad"
+  },
+  {
+    "tipo": "Tesis Ingeniería"
+  },
+  {
+    "tipo": "Tesis Licenciatura"
+  },
+  {
+    "tipo": "Tesis Maestría"
+  },
+  {
+    "tipo": "Tesina"
+  },
+  {
+    "tipo": "Vídeograbación"
+  }
+]

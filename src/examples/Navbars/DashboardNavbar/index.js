@@ -31,6 +31,7 @@ import Icon from "@mui/material/Icon";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
+import MDSnackbar from "components/MDSnackbar";
 
 // Material Dashboard 2 React example components
 import Breadcrumbs from "examples/Breadcrumbs";
@@ -56,8 +57,17 @@ import {
 //API
 import { useBusquedasMutation } from "api/api.slice";
 
+//Buscador
+import { SearchDocument } from "components/SearchDocument/SearchDocument";
+
 function DashboardNavbar({ absolute, light, isMini }) {
+  const [successSB, setSuccessSB] = useState(false);
+  const [sbMessage, setSBMessage] = useState("");
+  const [sbStatus, setSBStatus] = useState("");
+  const [errorSB, setErrorSB] = useState(false);
   const [busqueda, setBusqueda] = useState("");
+  const [isSearchDocumentOpen, setIsSearchDocumentOpen] = useState(false);
+  const [dt, setDt] = useState([]);
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
@@ -129,13 +139,65 @@ function DashboardNavbar({ absolute, light, isMini }) {
       return colorValue;
     },
   });
+  //open close snackbar
+  const openSuccessSB = () => setSuccessSB(true);
+  const closeSuccessSB = () => setSuccessSB(false);
+  const openErrorSB = () => setErrorSB(true);
+  const closeErrorSB = () => setErrorSB(false);
+
+  const renderSuccessSB = (
+    <MDSnackbar
+      color="success"
+      icon="check"
+      title="Operación exitosa"
+      content={sbMessage}
+      open={successSB}
+      dateTime={sbStatus}
+      onClose={closeSuccessSB}
+      close={closeSuccessSB}
+      bgGreen
+    />
+  );
+
+  const renderErrorSB = (
+    <MDSnackbar
+      color="error"
+      icon="warning"
+      title="Operación fallida"
+      content={sbMessage}
+      open={errorSB}
+      dateTime={sbStatus}
+      onClose={closeErrorSB}
+      close={closeErrorSB}
+      bgRed
+    />
+  );
+
+  const openSearchDocument = () => {
+    setIsSearchDocumentOpen(true);
+  };
+
+  const cerrarSearchDocument = () => {
+    setIsSearchDocumentOpen(false);
+  };
 
   const handleChangeBusqueda = (value) => {
     setBusqueda(value);
   };
 
   const handleBusqueda = async () => {
-    await busquedas({ data: busqueda });
+    const result = await busquedas({ data: { busqueda } });
+    if (result.data.status === 200) {
+      setSBStatus(`Status: ${result.data.status}`);
+      setSBMessage(result.data.message);
+      openSuccessSB();
+      setDt(result.data.result);
+      setTimeout(() => openSearchDocument(), [2000]);
+    } else {
+      setSBStatus(`Status: ${result.data.status}`);
+      setSBMessage(result.data.message);
+      openErrorSB();
+    }
   };
 
   const keyPressed = (e) => {
@@ -207,6 +269,13 @@ function DashboardNavbar({ absolute, light, isMini }) {
           </MDBox>
         )}
       </Toolbar>
+      <SearchDocument
+        openBool={isSearchDocumentOpen}
+        handleAceptarCerrar={cerrarSearchDocument}
+        objeto={dt}
+      />
+      {renderSuccessSB}
+      {renderErrorSB}
     </AppBar>
   );
 }
