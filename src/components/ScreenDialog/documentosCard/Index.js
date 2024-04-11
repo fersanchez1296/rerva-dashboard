@@ -19,157 +19,88 @@ import tipoDocumentos from "assets/json/tipoDocumento.json";
 import clasificaciones from "assets/json/clasificacion.json";
 import consultas from "assets/json/consulta.json";
 import disponibilidades from "assets/json/disponibilidad.json";
+import instituciones from "assets/json/instituciones.json";
 const Index = () => {
   const { newDocument } = newDocumentStore();
-  const [titulo, setTitulo] = React.useState("");
-  const [year, setYear] = React.useState("");
-  const [revista, setRevista] = React.useState("");
-  const [editorial, setEditorial] = React.useState("");
-  const [link, setLink] = React.useState("");
-  const [doi, setDoi] = React.useState("");
-  const [paginas, setPaginas] = React.useState("");
-  const [palabras, setPalabras] = React.useState("");
-  const [pais, setPais] = React.useState("");
-  const [idioma, setIdioma] = React.useState("");
-  const [municipio, setMunicipio] = React.useState("");
-  const [tipoDocumento, setTipoDocumento] = React.useState("");
-  const [clasificacion, setClasificacion] = React.useState("");
-  const [consulta, setConsulta] = React.useState("");
-  const [disponibilidad, setDisponibilidad] = React.useState("");
 
   const handleTituloChange = (event) => {
     const tituloValue = event.target.value;
-    setTitulo(tituloValue);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      Título: tituloValue,
-    }));
+    newDocument.setTitulo(tituloValue);
   };
 
   const handleYearChange = (event) => {
     const yearValue = event.target.value;
-    setYear(yearValue);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      Año: yearValue,
-    }));
+    newDocument.setYear(yearValue);
   };
 
   const handleRevistaChange = (event) => {
     const revistaValue = event.target.value;
-    setRevista(revistaValue);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      "Nombre de la revista/libro": revistaValue,
-    }));
+    newDocument.setRevista(revistaValue);
   };
 
   const handleEditorialChange = (event) => {
     const editorial = event.target.value;
-    setEditorial(editorial);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      "Libros/Editorial": editorial,
-    }));
+    newDocument.setEditorial(editorial);
   };
 
   const handleLinkChange = (event) => {
     const linkValue = event.target.value;
-    setLink(linkValue);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      "Link de acceso": linkValue,
-    }));
+    newDocument.setLink(linkValue);
   };
 
   const handleDoiChange = (event) => {
     const doiValue = event.target.value;
-    setDoi(doiValue);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      DOI: doiValue,
-    }));
+    newDocument.setDoi(doiValue);
   };
 
   const handlePaginasChange = (event) => {
     const paginasValue = event.target.value;
-    setPaginas(paginasValue);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      "Número de páginas": paginasValue,
-    }));
+    newDocument.setPaginas(paginasValue);
   };
 
   const handlePalabrasChange = (event) => {
     const palabrasValue = event.target.value;
-    setPalabras(palabrasValue);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      "Palabras Clave": palabrasValue,
-    }));
+    newDocument.setPalabras(palabrasValue);
   };
 
   const handlePaisChange = (event) => {
     const newPais = event.target.value;
-    setPais(newPais);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      "País de la Publicación": newPais,
-    }));
+    newDocument.setPais(newPais);
   };
 
   const handleMunicipioChange = (event) => {
     const newMunicipio = event.target.value;
-    setMunicipio(newMunicipio);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      "Municipios de estudio": newMunicipio,
-    }));
+    newDocument.setMunicipio(newMunicipio);
   };
 
   const handleIdiomaChange = (event) => {
     const newIdioma = event.target.value;
-    setIdioma(newIdioma);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      Idioma: newIdioma,
-    }));
+    newDocument.setIdioma(newIdioma);
   };
 
   const handleTipoDocumentoChange = (event) => {
     const newTipo = event.target.value;
-    setTipoDocumento(newTipo);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      "Tipo de documento": newTipo,
-    }));
+    newDocument.setTipoDocumento(newTipo);
   };
 
   const handleClasificacionChange = (event) => {
     const newClasificacion = event.target.value;
-    setClasificacion(newClasificacion);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      Clasificación: newClasificacion,
-    }));
+    newDocument.setClasificacion(newClasificacion);
   };
 
   const handleConsultaChange = (event) => {
     const newConsulta = event.target.value;
-    setConsulta(newConsulta);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      "Tipo de consulta": newConsulta,
-    }));
+    newDocument.setConsulta(newConsulta);
   };
 
   const handleDisponibilidadChange = (event) => {
     const newDisponibilidad = event.target.value;
-    setDisponibilidad(newDisponibilidad);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      Disponibilidad: newDisponibilidad,
-    }));
+    newDocument.setDisponibilidad(newDisponibilidad);
+  };
+
+  const handleInstitucionChange = (event) => {
+    const newInstitucion = event.target.value;
+    newDocument.setInstitucion(newInstitucion);
   };
   return (
     <Card>
@@ -203,6 +134,7 @@ const Index = () => {
             <MDInput
               onChange={(e) => handleYearChange(e)}
               type="text"
+              value={newDocument["Año"]}
               label="Año de publicación"
               fullWidth
             />
@@ -214,7 +146,7 @@ const Index = () => {
                 sx={{ minHeight: "3rem" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={pais}
+                value={newDocument["País de la Publicación"]}
                 label="País de publicación"
                 onChange={handlePaisChange}
               >
@@ -235,7 +167,7 @@ const Index = () => {
                 sx={{ minHeight: "3rem" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={municipio}
+                value={newDocument["Municipios de estudio"]}
                 label="Municipio de estudio"
                 onChange={handleMunicipioChange}
               >
@@ -256,7 +188,7 @@ const Index = () => {
                 sx={{ minHeight: "3rem" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={tipoDocumento}
+                value={newDocument["Tipo de documento"]}
                 label="Tipo de documento"
                 onChange={handleTipoDocumentoChange}
               >
@@ -272,12 +204,33 @@ const Index = () => {
           </MDBox>
           <MDBox mb={2}>
             <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Institución</InputLabel>
+              <Select
+                sx={{ minHeight: "3rem" }}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={newDocument["Tesis/Institución"]}
+                label="Institución"
+                onChange={handleInstitucionChange}
+              >
+                {instituciones.map((inst) => {
+                  return (
+                    <MenuItem value={inst.Institucion} key={inst.Institucion}>
+                      {inst.Institucion}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </MDBox>
+          <MDBox mb={2}>
+            <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Clasificación</InputLabel>
               <Select
                 sx={{ minHeight: "3rem" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={clasificacion}
+                value={newDocument["Clasificación"]}
                 label="Clasificación"
                 onChange={handleClasificacionChange}
               >
@@ -296,6 +249,7 @@ const Index = () => {
               onChange={(e) => handleRevistaChange(e)}
               type="text"
               label="Revista / Libro"
+              value={newDocument["Nombre de la revista/libro"]}
               fullWidth
             />
           </MDBox>
@@ -304,6 +258,7 @@ const Index = () => {
               onChange={(e) => handleEditorialChange(e)}
               type="text"
               label="Editorial"
+              value={newDocument["Libros/Editorial"]}
               fullWidth
             />
           </MDBox>
@@ -314,7 +269,7 @@ const Index = () => {
                 sx={{ minHeight: "3rem" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={consulta}
+                value={newDocument["Tipo de consulta"]}
                 label="Tipo consulta"
                 onChange={handleConsultaChange}
               >
@@ -351,6 +306,7 @@ const Index = () => {
               onChange={(e) => handlePaginasChange(e)}
               type="text"
               label="Número de páginas"
+              value={newDocument["Número de páginas"]}
               fullWidth
             />
           </MDBox>
@@ -361,7 +317,7 @@ const Index = () => {
                 sx={{ minHeight: "3rem" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={idioma}
+                value={newDocument.Idioma}
                 label="Idioma"
                 onChange={handleIdiomaChange}
               >
@@ -382,7 +338,7 @@ const Index = () => {
                 sx={{ minHeight: "3rem" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={disponibilidad}
+                value={newDocument.Disponibilidad}
                 label="Disponibilidad"
                 onChange={handleDisponibilidadChange}
               >
@@ -404,6 +360,7 @@ const Index = () => {
               onChange={(e) => handlePalabrasChange(e)}
               type="text"
               label="Palabras Clave"
+              value={newDocument["Palabras Clave"]}
               fullWidth
             />
           </MDBox>

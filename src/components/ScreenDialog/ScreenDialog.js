@@ -53,6 +53,27 @@ export const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
     setAddDocument({
       ...addDocument,
       ["Tipo de autoría"]: newDocument["Tipo de Autoría"],
+      Autores: newDocument.Autores,
+      ["Área"]: newDocument["Área"],
+      Campo: newDocument.Campo,
+      Disciplina: newDocument.Disciplina,
+      ["Título"]: newDocument["Título"],
+      ["Año"]: newDocument["Año"],
+      ["País de la Publicación"]: newDocument["País de la Publicación"],
+      ["Municipios de estudio"]: newDocument["Municipios de estudio"],
+      ["Tipo de documento"]: newDocument["Tipo de documento"],
+      ["Clasificación"]: newDocument["Clasificación"],
+      ["Nombre de la revista/libro"]: newDocument["Nombre de la revista/libro"],
+      ["Libros/Editorial"]: newDocument["Libros/Editorial"],
+      ["Tipo de consulta"]: newDocument["Tipo de consulta"],
+      ["Link de acceso"]: newDocument.Link,
+      DOI: newDocument.Doi,
+      ["Número de páginas"]: newDocument["Número de páginas"],
+      Idioma: newDocument.Idioma,
+      Disponibilidad: newDocument.Disponibilidad,
+      ["Palabras Clave"]: newDocument["Palabras Clave"],
+      ["Tesis/Institución"]: newDocument["Tesis/Institución"],
+      ["Compilador/Editor/Coordinador/Libro"]: newDocument["Compilador/Editor/Coordinador/Libro"],
     });
   }, [newDocument]);
 

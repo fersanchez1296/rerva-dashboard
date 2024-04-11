@@ -1,142 +1,422 @@
 [
-  { "disciplina": "Estudios culturales" },
-  { "disciplina": "Personalidad" },
-  { "disciplina": "Agricultura" },
-  { "disciplina": "Derecho" },
-  { "disciplina": "Paleontología" },
-  { "disciplina": "Diseño arquitectónico" },
-  { "disciplina": "Otras especialidades demográficas" },
-  { "disciplina": "Enfermedades infecciosas, bacteriología, virología clínica" },
-  { "disciplina": "Derecho y legislación nacionales" },
-  { "disciplina": "Computación" },
-  { "disciplina": "Etnobiología" },
-  { "disciplina": "Química de recursos naturales" },
-  { "disciplina": "Peces y fauna silvestre" },
-  { "disciplina": "Estudios urbanos" },
-  { "disciplina": "Acuacultura" },
-  { "disciplina": "Ingeniería metalúrgica y geológica" },
-  { "disciplina": "Química orgánica" },
-  { "disciplina": "Genética vegetal" },
-  { "disciplina": "Antropología cultural" },
-  { "disciplina": "Tecnología de los alimentos" },
-  { "disciplina": "Organización y dirección de empresas" },
-  { "disciplina": "Música" },
-  { "disciplina": "Otras especialidades artísticas" },
-  { "disciplina": "Economía general" },
-  { "disciplina": "Políticas públicas" },
-  { "disciplina": "Electroquímica" },
-  { "disciplina": "Geografía histórica" },
-  { "disciplina": "Biología vegetal (botánica)" },
-  { "disciplina": "Geofísica" },
-  { "disciplina": "Enfermedades veterinarias" },
-  { "disciplina": "Otras especialidades jurídicas" },
-  { "disciplina": "Psicología experimental" },
-  { "disciplina": "Ciencias del suelo (edafología)" },
-  { "disciplina": "S/I" },
-  { "disciplina": "Otras especialidades de la biología" },
-  { "disciplina": "Sociología cultural" },
-  { "disciplina": "Biosistemática y manejo de recursos materiales" },
-  { "disciplina": "Problemas sociales o social topics" },
-  { "disciplina": "Conservación de ecosistemas" },
-  { "disciplina": "Otras especialidades políticas" },
-  { "disciplina": "Actividad económica" },
-  { "disciplina": "Biografías" },
-  { "disciplina": "Ciencias Pesqueras" },
-  { "disciplina": "Arqueología" },
-  { "disciplina": "Limnología" },
-  { "disciplina": "Conservación del patrimonio arquitectónico" },
-  { "disciplina": "Biología de insectos (entomología)" },
-  { "disciplina": "Problemas sociales" },
-  { "disciplina": "Dermatología y enfermedades de transmisión sexual" },
-  { "disciplina": "Otras especialidades psicológicas" },
-  { "disciplina": "Química general" },
-  { "disciplina": "Ingeniería energética" },
-  { "disciplina": "Otro " },
-  { "disciplina": "Enfermedades de la nutrición y endocrinología" },
-  { "disciplina": "Biotecnología agrícola y biotecnología alimentaria" },
-  { "disciplina": "Fitopatología" },
-  { "disciplina": "Ingeniería mecatrónica" },
-  { "disciplina": "Geografía regional" },
-  { "disciplina": "Medios de comunicación y comunicación sociocultural" },
-  { "disciplina": "Probabilidad " },
-  { "disciplina": "Administración pública" },
-  { "disciplina": "Geografía económica" },
-  { "disciplina": "Antropología social" },
-  { "disciplina": "Cardiología, fisiología cardiovascular" },
-  { "disciplina": "Ecología" },
-  { "disciplina": "Ciencias políticas" },
-  { "disciplina": "Recursos acuáticos" },
-  { "disciplina": "Ginecología, obstetricia y reproducción" },
-  { "disciplina": "Arquitectura (Planeación regional o urbana)" },
-  { "disciplina": "Demografía geográfica" },
-  { "disciplina": "Didáctica, pedagogía y currículo" },
-  { "disciplina": "Historia por épocas" },
-  { "disciplina": "Historia por especialidades" },
-  { "disciplina": "Contabilidad económica" },
-  { "disciplina": "Grupos sociales" },
-  { "disciplina": "Historia general" },
-  { "disciplina": "Administración y gestión" },
-  { "disciplina": "Ciencia forestal" },
-  { "disciplina": "Economía sectorial" },
-  { "disciplina": "Otras especialidades tecnológicas" },
-  { "disciplina": "Fisiopatología, fisiología clínica general" },
-  { "disciplina": "Derecho internacional" },
-  { "disciplina": "Diseño, planificación y conservación de paisajes y jardines" },
-  { "disciplina": "Biología humana" },
-  { "disciplina": "Ciencias veterinarias" },
-  { "disciplina": "Cuerpo y sexualidades" },
-  { "disciplina": "Neurología y neurocirugía" },
-  { "disciplina": "Otras especialidades económicas" },
-  { "disciplina": "Fisiología vegetal" },
-  { "disciplina": "Procesos tecnológicos" },
-  { "disciplina": "Salud Pública" },
-  { "disciplina": "Geología" },
-  { "disciplina": "Artes" },
-  { "disciplina": "Ingeniería agrícola" },
-  { "disciplina": "Otras especialidades antropológicas" },
-  { "disciplina": "Otras especialidades geográficas" },
-  { "disciplina": "Investigación clínica" },
-  { "disciplina": "Tecnología GM (Genéticamente modificada)" },
-  { "disciplina": "Otras" },
-  { "disciplina": "Biotecnología vegetal" },
-  { "disciplina": "Tecnologías de las telecomunicaciones" },
-  { "disciplina": "Otras especialidades de la tierra, espacio o entorno" },
-  { "disciplina": "Agroquímica" },
-  { "disciplina": "Cambio y desarrollo social" },
-  { "disciplina": "Ingeniería de telecomunicaciones" },
-  { "disciplina": "Gestión sustentable del agua" },
-  { "disciplina": "Producción animal" },
-  { "disciplina": "Sociología de los asentamientos humanos" },
-  { "disciplina": "Gestión ambiental para la sustentabilidad" },
-  { "disciplina": "Sistemas políticos" },
-  { "disciplina": "Gestión ambiental" },
-  { "disciplina": "Agronomía" },
-  { "disciplina": "Microbiología" },
-  { "disciplina": "Negocios y contabilidad" },
-  { "disciplina": "Economía del cambio tecnológico" },
-  { "disciplina": "Biotecnología productiva" },
-  { "disciplina": "Otras especialidades agrarias" },
-  { "disciplina": "Planeación del transporte y aspectos sociales del transporte" },
-  { "disciplina": "Mitigación y adaptación al cambio climático" },
-  { "disciplina": "Morfología" },
-  { "disciplina": "Climatología" },
-  { "disciplina": "Teoría, análisis y crítica literarias" },
-  { "disciplina": "Estudio psicológico de temas sociales" },
-  { "disciplina": "Enfermería de especialidad" },
-  { "disciplina": "Seguridad hídrica" },
-  { "disciplina": "Arquitectura, diseño y urbanismo" },
-  { "disciplina": "Biología animal (zoología)" },
-  { "disciplina": "Hidrología" },
-  { "disciplina": "Historia regional" },
-  { "disciplina": "Psicología del niño y del adolescente" },
-  { "disciplina": "Educación" },
-  { "disciplina": "Ingeniería ambiental" },
-  { "disciplina": "Trabajo y atención social" },
-  { "disciplina": "Biología de poblaciones" },
-  { "disciplina": "Ingeniería minera" },
-  { "disciplina": "Literatura específica" },
-  { "disciplina": "Otras especialidades sociológicas" },
-  { "disciplina": "Ingeniería de sistemas" },
-  { "disciplina": "Teoría y métodos educativos" },
-  { "disciplina": "Parasitología" }
+	{
+		"disciplina": "Actividad económica"
+	},
+	{
+		"disciplina": "Acuacultura"
+	},
+	{
+		"disciplina": "Administración pública"
+	},
+	{
+		"disciplina": "Administración y gestión"
+	},
+	{
+		"disciplina": "Agricultura"
+	},
+	{
+		"disciplina": "Agronomía"
+	},
+	{
+		"disciplina": "Agroquímica"
+	},
+	{
+		"disciplina": "Antropología cultural"
+	},
+	{
+		"disciplina": "Antropología social"
+	},
+	{
+		"disciplina": "Arqueología"
+	},
+	{
+		"disciplina": "Arquitectura (Planeación regional o urbana)"
+	},
+	{
+		"disciplina": "Arquitectura, diseño y urbanismo"
+	},
+	{
+		"disciplina": "Artes"
+	},
+	{
+		"disciplina": "Biografías"
+	},
+	{
+		"disciplina": "Biología animal (zoología)"
+	},
+	{
+		"disciplina": "Biología de insectos (entomología)"
+	},
+	{
+		"disciplina": "Biología de poblaciones"
+	},
+	{
+		"disciplina": "Biología humana"
+	},
+	{
+		"disciplina": "Biología vegetal (botánica)"
+	},
+	{
+		"disciplina": "Biosistemática y manejo de recursos materiales"
+	},
+	{
+		"disciplina": "Biotecnología agrícola y biotecnología alimentaria"
+	},
+	{
+		"disciplina": "Biotecnología productiva"
+	},
+	{
+		"disciplina": "Biotecnología vegetal"
+	},
+	{
+		"disciplina": "Cambio y desarrollo social"
+	},
+	{
+		"disciplina": "Cardiología, fisiología cardiovascular"
+	},
+	{
+		"disciplina": "Ciencia forestal"
+	},
+	{
+		"disciplina": "Ciencias Pesqueras"
+	},
+	{
+		"disciplina": "Ciencias del suelo (edafología)"
+	},
+	{
+		"disciplina": "Ciencias políticas"
+	},
+	{
+		"disciplina": "Ciencias veterinarias"
+	},
+	{
+		"disciplina": "Climatología"
+	},
+	{
+		"disciplina": "Computación"
+	},
+	{
+		"disciplina": "Conservación de ecosistemas"
+	},
+	{
+		"disciplina": "Conservación del patrimonio arquitectónico"
+	},
+	{
+		"disciplina": "Contabilidad económica"
+	},
+	{
+		"disciplina": "Cuerpo y sexualidades"
+	},
+	{
+		"disciplina": "Demografía geográfica"
+	},
+	{
+		"disciplina": "Derecho"
+	},
+	{
+		"disciplina": "Derecho internacional"
+	},
+	{
+		"disciplina": "Derecho y legislación nacionales"
+	},
+	{
+		"disciplina": "Dermatología y enfermedades de transmisión sexual"
+	},
+	{
+		"disciplina": "Didáctica, pedagogía y currículo"
+	},
+	{
+		"disciplina": "Diseño arquitectónico"
+	},
+	{
+		"disciplina": "Diseño, planificación y conservación de paisajes y jardines"
+	},
+	{
+		"disciplina": "Ecología"
+	},
+	{
+		"disciplina": "Economía del cambio tecnológico"
+	},
+	{
+		"disciplina": "Economía general"
+	},
+	{
+		"disciplina": "Economía sectorial"
+	},
+	{
+		"disciplina": "Educación"
+	},
+	{
+		"disciplina": "Electroquímica"
+	},
+	{
+		"disciplina": "Enfermedades de la nutrición y endocrinología"
+	},
+	{
+		"disciplina": "Enfermedades infecciosas, bacteriología, virología clínica"
+	},
+	{
+		"disciplina": "Enfermedades veterinarias"
+	},
+	{
+		"disciplina": "Enfermería de especialidad"
+	},
+	{
+		"disciplina": "Estudio psicológico de temas sociales"
+	},
+	{
+		"disciplina": "Estudios culturales"
+	},
+	{
+		"disciplina": "Estudios urbanos"
+	},
+	{
+		"disciplina": "Etnobiología"
+	},
+	{
+		"disciplina": "Fisiología vegetal"
+	},
+	{
+		"disciplina": "Fisiopatología, fisiología clínica general"
+	},
+	{
+		"disciplina": "Fitopatología"
+	},
+	{
+		"disciplina": "Genética vegetal"
+	},
+	{
+		"disciplina": "Geofísica"
+	},
+	{
+		"disciplina": "Geografía económica"
+	},
+	{
+		"disciplina": "Geografía histórica"
+	},
+	{
+		"disciplina": "Geografía regional"
+	},
+	{
+		"disciplina": "Geología"
+	},
+	{
+		"disciplina": "Gestión ambiental"
+	},
+	{
+		"disciplina": "Gestión ambiental para la sustentabilidad"
+	},
+	{
+		"disciplina": "Gestión sustentable del agua"
+	},
+	{
+		"disciplina": "Ginecología, obstetricia y reproducción"
+	},
+	{
+		"disciplina": "Grupos sociales"
+	},
+	{
+		"disciplina": "Hidrología"
+	},
+	{
+		"disciplina": "Historia general"
+	},
+	{
+		"disciplina": "Historia por especialidades"
+	},
+	{
+		"disciplina": "Historia por épocas"
+	},
+	{
+		"disciplina": "Historia regional"
+	},
+	{
+		"disciplina": "Ingeniería agrícola"
+	},
+	{
+		"disciplina": "Ingeniería ambiental"
+	},
+	{
+		"disciplina": "Ingeniería de sistemas"
+	},
+	{
+		"disciplina": "Ingeniería de telecomunicaciones"
+	},
+	{
+		"disciplina": "Ingeniería energética"
+	},
+	{
+		"disciplina": "Ingeniería mecatrónica"
+	},
+	{
+		"disciplina": "Ingeniería metalúrgica y geológica"
+	},
+	{
+		"disciplina": "Ingeniería minera"
+	},
+	{
+		"disciplina": "Investigación clínica"
+	},
+	{
+		"disciplina": "Limnología"
+	},
+	{
+		"disciplina": "Literatura específica"
+	},
+	{
+		"disciplina": "Medios de comunicación y comunicación sociocultural"
+	},
+	{
+		"disciplina": "Microbiología"
+	},
+	{
+		"disciplina": "Mitigación y adaptación al cambio climático"
+	},
+	{
+		"disciplina": "Morfología"
+	},
+	{
+		"disciplina": "Música"
+	},
+	{
+		"disciplina": "Negocios y contabilidad"
+	},
+	{
+		"disciplina": "Neurología y neurocirugía"
+	},
+	{
+		"disciplina": "Organización y dirección de empresas"
+	},
+	{
+		"disciplina": "Otras"
+	},
+	{
+		"disciplina": "Otras especialidades agrarias"
+	},
+	{
+		"disciplina": "Otras especialidades antropológicas"
+	},
+	{
+		"disciplina": "Otras especialidades artísticas"
+	},
+	{
+		"disciplina": "Otras especialidades de la biología"
+	},
+	{
+		"disciplina": "Otras especialidades de la tierra, espacio o entorno"
+	},
+	{
+		"disciplina": "Otras especialidades demográficas"
+	},
+	{
+		"disciplina": "Otras especialidades económicas"
+	},
+	{
+		"disciplina": "Otras especialidades geográficas"
+	},
+	{
+		"disciplina": "Otras especialidades jurídicas"
+	},
+	{
+		"disciplina": "Otras especialidades políticas"
+	},
+	{
+		"disciplina": "Otras especialidades psicológicas"
+	},
+	{
+		"disciplina": "Otras especialidades sociológicas"
+	},
+	{
+		"disciplina": "Otras especialidades tecnológicas"
+	},
+	{
+		"disciplina": "Otro "
+	},
+	{
+		"disciplina": "Paleontología"
+	},
+	{
+		"disciplina": "Parasitología"
+	},
+	{
+		"disciplina": "Peces y fauna silvestre"
+	},
+	{
+		"disciplina": "Personalidad"
+	},
+	{
+		"disciplina": "Planeación del transporte y aspectos sociales del transporte"
+	},
+	{
+		"disciplina": "Políticas públicas"
+	},
+	{
+		"disciplina": "Probabilidad "
+	},
+	{
+		"disciplina": "Problemas sociales"
+	},
+	{
+		"disciplina": "Problemas sociales o social topics"
+	},
+	{
+		"disciplina": "Procesos tecnológicos"
+	},
+	{
+		"disciplina": "Producción animal"
+	},
+	{
+		"disciplina": "Psicología del niño y del adolescente"
+	},
+	{
+		"disciplina": "Psicología experimental"
+	},
+	{
+		"disciplina": "Química de recursos naturales"
+	},
+	{
+		"disciplina": "Química general"
+	},
+	{
+		"disciplina": "Química orgánica"
+	},
+	{
+		"disciplina": "Recursos acuáticos"
+	},
+	{
+		"disciplina": "S/I"
+	},
+	{
+		"disciplina": "Salud Pública"
+	},
+	{
+		"disciplina": "Seguridad hídrica"
+	},
+	{
+		"disciplina": "Sistemas políticos"
+	},
+	{
+		"disciplina": "Sociología cultural"
+	},
+	{
+		"disciplina": "Sociología de los asentamientos humanos"
+	},
+	{
+		"disciplina": "Tecnología GM (Genéticamente modificada)"
+	},
+	{
+		"disciplina": "Tecnología de los alimentos"
+	},
+	{
+		"disciplina": "Tecnologías de las telecomunicaciones"
+	},
+	{
+		"disciplina": "Teoría y métodos educativos"
+	},
+	{
+		"disciplina": "Teoría, análisis y crítica literarias"
+	},
+	{
+		"disciplina": "Trabajo y atención social"
+	}
 ]

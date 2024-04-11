@@ -14,6 +14,8 @@ import FormControl from "@mui/material/FormControl";
 import areas from "assets/json/areas.json";
 import campos from "assets/json/campos.json";
 import disciplinas from "assets/json/disciplina.json";
+//store
+import { newDocumentStore } from "../../../zustand/newDocumentStore.ts";
 
 const Index = () => {
   const [newAreaChecked, setNewAreaChecked] = React.useState(false);
@@ -25,75 +27,62 @@ const Index = () => {
   const [newCampo, setNewCampo] = React.useState("");
   const [disciplina, setDisciplina] = React.useState("");
   const [newDisciplina, setNewDisciplina] = React.useState("");
+  const { newDocument } = newDocumentStore();
 
-  const handleAreaChange = (event) => {
+  const handleChangeAreaSelect = (event) => {
     setNewArea("");
     const newArea = event.target.value;
     setArea(newArea);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      Área: newArea,
-    }));
+    newDocument.setArea(newArea);
   };
 
-  const handleNewArea = (event) => {
+  const handleChangeNewAreaInput = (event) => {
     const newArea = event.target.value;
     setNewArea(newArea);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      Área: newArea,
-    }));
+    newDocument.setArea(newArea);
   };
 
-  const handleNewAreaChange = (event) => {
+  const handleChangeNewAreaChecked = (event) => {
     setArea("");
     setNewArea("");
     setNewAreaChecked(event.target.checked);
   };
 
-  const handleCampoChange = (event) => {
+  const handleChangeCampoSelect = (event) => {
     setNewCampo("");
     const newCampo = event.target.value;
     setCampo(newCampo);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      Campo: newCampo,
-    }));
+    newDocument.setCampo(newCampo);
   };
 
-  const handleNewCampo = (event) => {
+  const handleChangeNewCampoInput = (event) => {
     const newCampo = event.target.value;
     setNewCampo(newCampo);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      Campo: newCampo,
-    }));
+    newDocument.setCampo(newCampo);
   };
 
-  const handleNewCampoChange = (event) => {
+  const handleChangeNewCampoChecked = (event) => {
+    setCampo("");
+    setNewCampo("");
     setNewCampoChecked(event.target.checked);
   };
 
-  const handleDisciplinaChange = (event) => {
+  const handleChangeDisciplinaSelect = (event) => {
     setNewDisciplina("");
     const newDisciplina = event.target.value;
     setDisciplina(newDisciplina);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      Disciplina: newDisciplina,
-    }));
+    newDocument.setDisciplina(newDisciplina);
   };
 
-  const handleNewDisciplina = (event) => {
+  const handleChangeNewDisciplinaInput = (event) => {
     const newDisciplina = event.target.value;
     setNewDisciplina(newDisciplina);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      Disciplina: newDisciplina,
-    }));
+    newDocument.setDisciplina(newDisciplina);
   };
 
-  const handleNewDisciplinaChange = (event) => {
+  const handleChangeNewDisciplinaChecked = (event) => {
+    setDisciplina("");
+    setNewDisciplina("");
     setNewDisciplinaChecked(event.target.checked);
   };
   return (
@@ -122,10 +111,10 @@ const Index = () => {
                 sx={{ minHeight: "3rem" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                //value={area}
+                value={area}
                 label="Área de estudio"
                 disabled={newAreaChecked ? true : false}
-                //onChange={handleAreaChange}
+                onChange={handleChangeAreaSelect}
               >
                 {areas.map((area) => {
                   return (
@@ -136,7 +125,7 @@ const Index = () => {
                 })}
               </Select>
             </FormControl>
-            <Checkbox checked={newAreaChecked} onChange={handleNewAreaChange} />
+            <Checkbox checked={newAreaChecked} onChange={handleChangeNewAreaChecked} />
             <MDTypography
               variant="button"
               fontWeight="regular"
@@ -151,7 +140,7 @@ const Index = () => {
               disabled={!newAreaChecked ? true : false}
               style={{ width: "41%" }}
               value={newArea}
-              onChange={(e) => handleNewArea(e)}
+              onChange={(e) => handleChangeNewAreaInput(e)}
             />
           </MDBox>
           <MDBox mb={2}>
@@ -164,7 +153,7 @@ const Index = () => {
                 value={campo}
                 label="Campo de estudio"
                 disabled={newCampoChecked ? true : false}
-                onChange={handleCampoChange}
+                onChange={handleChangeCampoSelect}
               >
                 {campos.map((campo) => {
                   return (
@@ -175,7 +164,7 @@ const Index = () => {
                 })}
               </Select>
             </FormControl>
-            <Checkbox checked={newCampoChecked} onChange={handleNewCampoChange} />
+            <Checkbox checked={newCampoChecked} onChange={handleChangeNewCampoChecked} />
             <MDTypography
               variant="button"
               fontWeight="regular"
@@ -187,9 +176,10 @@ const Index = () => {
             <MDInput
               type="text"
               label="Nuevo campo de estudio"
+              value={newCampo}
               disabled={!newCampoChecked ? true : false}
               style={{ width: "39%" }}
-              onChange={(e) => handleNewCampo(e)}
+              onChange={(e) => handleChangeNewCampoInput(e)}
             />
           </MDBox>
           <MDBox mb={2}>
@@ -202,7 +192,7 @@ const Index = () => {
                 value={disciplina}
                 label="Disciplina de estudio"
                 disabled={newDisciplinaChecked ? true : false}
-                onChange={handleDisciplinaChange}
+                onChange={handleChangeDisciplinaSelect}
               >
                 {disciplinas.map((disciplina) => {
                   return (
@@ -213,7 +203,7 @@ const Index = () => {
                 })}
               </Select>
             </FormControl>
-            <Checkbox checked={newDisciplinaChecked} onChange={handleNewDisciplinaChange} />
+            <Checkbox checked={newDisciplinaChecked} onChange={handleChangeNewDisciplinaChecked} />
             <MDTypography
               variant="button"
               fontWeight="regular"
@@ -225,9 +215,10 @@ const Index = () => {
             <MDInput
               type="text"
               label="Nueva Disciplina"
+              value={newDisciplina}
               disabled={!newDisciplinaChecked ? true : false}
               style={{ width: "37%" }}
-              onChange={(e) => handleNewDisciplina(e)}
+              onChange={(e) => handleChangeNewDisciplinaInput(e)}
             />
           </MDBox>
         </MDBox>

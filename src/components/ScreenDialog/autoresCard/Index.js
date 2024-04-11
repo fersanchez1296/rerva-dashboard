@@ -18,11 +18,6 @@ const Index = () => {
   const [individualChecked, setIndividualChecked] = React.useState(false);
   const [coAutoriaChecked, setCoAutoriaChecked] = React.useState(false);
   const [autores, setAutores] = React.useState("");
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
 
   const handleIndividualChange = (event) => {
     const autoriaCheck = event.target.checked;
@@ -46,11 +41,12 @@ const Index = () => {
 
   const handleAutoresChange = (event) => {
     const autoresValue = event.target.value;
-    setAutores(autoresValue);
-    setNewDocumentBody((prevBody) => ({
-      ...prevBody,
-      Autores: autoresValue,
-    }));
+    newDocument.setAutores(autoresValue);
+  };
+
+  const handleCompiladorChange = (event) => {
+    const compiladorValue = event.target.value;
+    newDocument.setCompilador(compiladorValue);
   };
   return (
     <Card>
@@ -104,25 +100,19 @@ const Index = () => {
               type="text"
               label="Nombre(s)"
               value={newDocument.Autores}
-              //onChange={(e) => handleAutoresChange(e)}
+              onChange={(e) => handleAutoresChange(e)}
               fullWidth
             />
           </MDBox>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
-            <Select
-              sx={{ minHeight: "3rem" }}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              //value={age}
-              label="Age"
-              //onChange={handleChange}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
+          <MDBox mb={2}>
+            <MDInput
+              type="text"
+              label="Compilador/Editor/Coordinador/Libro"
+              value={newDocument["Compilador/Editor/Coordinador/Libro"]}
+              onChange={(e) => handleCompiladorChange(e)}
+              fullWidth
+            />
+          </MDBox>
         </MDBox>
       </MDBox>
     </Card>
