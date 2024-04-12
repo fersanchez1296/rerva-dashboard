@@ -10,7 +10,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 import authorsTableData from "layouts/tables/data/authorsTableData";
-import { ScreenDialog } from "components/ScreenDialog/ScreenDialog";
+import ScreenDialog from "components/ScreenDialog/ScreenDialog";
 import { RejectScreen } from "components/RejectScreen/RejectScreen";
 import { useGetSolicitudesQuery } from "api/api.slice";
 

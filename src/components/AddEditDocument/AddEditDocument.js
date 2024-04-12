@@ -25,7 +25,6 @@ import { useUpdateSolicitudMutation } from "api/api.slice";
 //interface newDocument
 import { newDocumentFillsInterface } from "assets/interfaces/newDocumentFills.interface.ts";
 //card components
-import StatusCard from "./statusCard/Index";
 import AutoresCard from "./autoresCard/Index";
 import AreasCard from "./areasCard/Index";
 import DocumentosCard from "./documentosCard/Index";
@@ -34,20 +33,38 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
-  console.log("se renderiza");
+const AddEditDocument = ({ openBool, handleAceptarCerrar, objeto }) => {
+  console.log(objeto);
   const [addDocument, setAddDocument] = React.useState(newDocumentFillsInterface);
-  const { statusCard, newDocument } = newDocumentStore();
+  const { newDocument } = newDocumentStore();
   const [updateSolicitud] = useUpdateSolicitudMutation();
 
   useEffect(() => {
-    statusCard.setDestinatario(objeto.Email);
-    statusCard.setAsunto(objeto.ApprovalStatus);
-    statusCard.setIdSolicitud(objeto._id);
-    newDocument.setField("Autores", objeto.Autor);
+    newDocument.setField("Autores", objeto.Autores);
     newDocument.setField("Título", objeto["Título"]);
-    newDocument.setField("Link", objeto.Link);
+    newDocument.setField("Link", objeto["Link de acceso"]);
     newDocument.setField("Doi", objeto.DOI);
+    newDocument.setField("Área", objeto["Área"]);
+    newDocument.setField("Campo", objeto.Campo);
+    newDocument.setField("Disciplina", objeto.Disciplina);
+    newDocument.setField("Año", objeto["Año"]);
+    newDocument.setField("País de la Publicación", objeto["País de la Publicación"]);
+    newDocument.setField("Municipios de estudio", objeto["Municipios de estudio"]);
+    newDocument.setField("Tipo de documento", objeto["Tipo de documento"]);
+    newDocument.setField("Tesis/Institución", objeto["Tesis/ Institución"]);
+    newDocument.setField("Autoría", objeto["Tipo de autoría"]);
+    newDocument.setField("Clasificación", objeto["Clasificación"]);
+    newDocument.setField("Nombre de la revista/libro", objeto["Nombre de la revista/libro"]);
+    newDocument.setField("Libros/Editorial", objeto["Libros/Editorial"]);
+    newDocument.setField("Tipo de consulta", objeto["Tipo de consulta"]);
+    newDocument.setField("Número de páginas", objeto["Número de páginas"]);
+    newDocument.setField("Idioma", objeto["Idioma"]);
+    newDocument.setField("Disponibilidad", objeto["Disponibilidad"]);
+    newDocument.setField("Palabras Clave", objeto["Palabras Clave"]);
+    newDocument.setField(
+      "Compilador/Editor/Coordinador/Libro",
+      objeto["Compilador/ Editor/ Coordinador/ Libro"]
+    );
   }, [openBool]);
 
   useEffect(() => {
@@ -87,16 +104,9 @@ const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
   );
 
   const handleEnviar = async () => {
-    const solicitud = {
-      Destinatario: statusCard.Destinatario,
-      Asunto: statusCard.Asunto,
-      Id: statusCard.idSolicitud,
-      Notas: statusCard.Notas,
-    };
-
-    console.log(solicitud, addDocument);
-    const result = await updateSolicitud({ data: { addDocument, solicitud }, id: solicitud.Id });
-    handleAceptarCerrar();
+    console.log(addDocument);
+    // const result = await updateSolicitud({ data: addDocument, id: solicitud.Id });
+    // handleAceptarCerrar();
   };
 
   return (
@@ -126,7 +136,7 @@ const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
               endIcon={<SaveIcon />}
               onClick={handleEnviar}
             >
-              Guardar y Enviar
+              Guardar
             </Button>
           </Toolbar>
         </AppBar>
@@ -135,9 +145,6 @@ const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
             <MDAlert color="warning">{alertContent("warning")}</MDAlert>
           </ListItem>
           <Grid container spacing={2} sx={{ mt: 5 }}>
-            <Grid xs={12} md={12}>
-              <StatusCard />
-            </Grid>
             <Grid xs={12} md={6}>
               <AutoresCard />
             </Grid>
@@ -154,9 +161,9 @@ const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
   );
 };
 
-export default React.memo(ScreenDialog);
+export default React.memo(AddEditDocument);
 
-ScreenDialog.propTypes = {
+AddEditDocument.propTypes = {
   openBool: PropTypes.bool.isRequired,
   handleAceptarCerrar: PropTypes.func,
   objeto: PropTypes.object,

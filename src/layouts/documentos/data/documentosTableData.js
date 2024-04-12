@@ -24,9 +24,9 @@ import MDBadge from "components/MDBadge";
 
 // Images
 import team2 from "assets/images/team-2.jpg";
-let statusSolicitud = {};
+let newOrEdit = "";
 let selectedId = "";
-export default function data(dt, onAceptarClick) {
+export default function data(dt, onAceptarClick, onAceptarDeleteClick) {
   return {
     columns: [
       { Header: "Acción 1", accessor: "accion_1", align: "center" },
@@ -61,8 +61,8 @@ export default function data(dt, onAceptarClick) {
           color={"info"}
           variant={"contained"}
           onClick={() => {
-            statusSolicitud.id = el._id;
-            statusSolicitud.status = "Rechazada";
+            selectedId = el._id;
+            newOrEdit = "Editar";
             onAceptarClick();
           }}
         >
@@ -76,9 +76,9 @@ export default function data(dt, onAceptarClick) {
           color={"error"}
           variant={"contained"}
           onClick={() => {
-            statusSolicitud.id = el._id;
-            statusSolicitud.status = "Rechazada";
-            onAceptarClick();
+            newOrEdit = "Eliminar";
+            selectedId = el._id;
+            onAceptarDeleteClick();
           }}
         >
           <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
@@ -210,6 +210,7 @@ export default function data(dt, onAceptarClick) {
       ),
     })),
 
-    solicitudStatus: statusSolicitud,
+    newOrEdit: newOrEdit,
+    selectedId: selectedId,
   };
 }

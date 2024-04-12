@@ -11,11 +11,13 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 import documentosTableData from "layouts/documentos/data/documentosTableData";
-//screen dialog
-// import { ScreenDialog } from "components/ScreenDialog/ScreenDialog";
+//Add-Edit-Document
+import AddEditDocument from "components/AddEditDocument/AddEditDocument";
+import DeleteDocument from "components/AddEditDocument/DeleteDocument";
 function Documentos() {
-  const { data: dt, isLoading } = useGetDocumentsQuery();
+  const { data: dt, isLoading, refetch } = useGetDocumentsQuery();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   let emptyInfo = {
     _id: 0,
     Autor: "",
@@ -34,6 +36,10 @@ function Documentos() {
     return <div>No data available.</div>;
   }
 
+  const handleClickActualizar = () => {
+    refetch();
+  };
+
   const handleAceptarClick = () => {
     setIsDialogOpen(true);
   };
@@ -41,10 +47,22 @@ function Documentos() {
     setIsDialogOpen(false);
   };
 
-  const { columns, rows, solicitudStatus } = documentosTableData(dt, handleAceptarClick);
-  const objetoEncontrado = { ...dt.find((objeto) => objeto._id === solicitudStatus.id) };
+  const handleAceptardeleteClick = () => {
+    setIsDeleteDialogOpen(true);
+  };
+  const handleAceptarCerrardelete = () => {
+    setIsDeleteDialogOpen(false);
+  };
+
+  const { columns, rows, newOrEdit, selectedId } = documentosTableData(
+    dt,
+    handleAceptarClick,
+    handleAceptardeleteClick
+  );
+  const objetoEncontrado = { ...dt.find((objeto) => objeto._id === selectedId) };
+
   if (objetoEncontrado !== undefined) {
-    objetoEncontrado.ApprovalStatus = solicitudStatus.status;
+    objetoEncontrado.NewDocument = newOrEdit;
   } else {
     objetoEncontrado = emptyInfo;
   }
@@ -57,15 +75,7 @@ function Documentos() {
           pb={3}
           style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
         >
-          <MDButton
-            color={"success"}
-            variant={"contained"}
-            onClick={() => {
-              statusSolicitud.id = el._id;
-              statusSolicitud.status = "Rechazada";
-              onAceptarClick();
-            }}
-          >
+          <MDButton color={"success"} variant={"contained"} onClick={handleAceptarClick}>
             <MDTypography
               component="a"
               href="#"
@@ -76,25 +86,19 @@ function Documentos() {
               Agregar Nuevo Documento
             </MDTypography>
           </MDButton>
-          <MDButton
-            color={"warning"}
-            variant={"contained"}
-            onClick={() => {
-              statusSolicitud.id = el._id;
-              statusSolicitud.status = "Rechazada";
-              onAceptarClick();
-            }}
-          >
-            <MDTypography
-              component="a"
-              href="#"
-              variant="caption"
-              color="white"
-              fontWeight="medium"
-            >
-              Actualizar Documentos
+          <MDButton color={"warning"} variant={"contained"} onClick={handleClickActualizar}>
+            <MDTypography component="a" variant="caption" color="white" fontWeight="medium">
+              Actualizar Solicitudes
             </MDTypography>
           </MDButton>
+          <MDBox>
+            <MDTypography component="div" variant="caption" color="dark" fontWeight="medium">
+              Última vez actualizado
+            </MDTypography>
+            <MDTypography component="div" variant="caption" color="dark" fontWeight="medium">
+              {Date()}
+            </MDTypography>
+          </MDBox>
         </MDBox>
         <MDBox pt={6} pb={3}>
           <Grid container spacing={6}>
@@ -130,11 +134,16 @@ function Documentos() {
         </MDBox>
         <Footer />
       </DashboardLayout>
-      {/* <ScreenDialog
+      <AddEditDocument
         openBool={isDialogOpen}
         handleAceptarCerrar={handleAceptarCerrar}
         objeto={objetoEncontrado === undefined ? emptyInfo : objetoEncontrado}
-      /> */}
+      />
+      <DeleteDocument
+        openBool={isDeleteDialogOpen}
+        handleAceptarCerrar={handleAceptarCerrardelete}
+        deleteById={selectedId}
+      />
     </>
   );
 }

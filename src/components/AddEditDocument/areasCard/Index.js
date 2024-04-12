@@ -111,7 +111,7 @@ const Index = () => {
                 sx={{ minHeight: "3rem" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={area}
+                value={newDocument["Área"] === "" ? area : newDocument["Área"]}
                 label="Área de estudio"
                 disabled={newAreaChecked ? true : false}
                 onChange={(e) => handleChangeAreaSelect("Área", e)}
@@ -150,7 +150,7 @@ const Index = () => {
                 sx={{ minHeight: "3rem" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={campo}
+                value={newDocument.Campo === "" ? campo : newDocument.Campo}
                 label="Campo de estudio"
                 disabled={newCampoChecked ? true : false}
                 onChange={(e) => handleChangeCampoSelect("Campo", e)}
@@ -189,7 +189,7 @@ const Index = () => {
                 sx={{ minHeight: "3rem" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={disciplina}
+                value={newDocument.Disciplina === "" ? disciplina : newDocument.Disciplina}
                 label="Disciplina de estudio"
                 disabled={newDisciplinaChecked ? true : false}
                 onChange={(e) => handleChangeDisciplinaSelect("Disciplina", e)}

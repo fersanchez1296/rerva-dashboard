@@ -11,11 +11,12 @@ import TextField from "@mui/material/TextField";
 
 const Index = () => {
   const { statusCard } = newDocumentStore();
-  const [notas, setNotas] = React.useState("Sin Notas");
 
   const handleChangeNotas = (value) => {
-    setNotas(value);
+    const notas = event.target.value;
+    statusCard.setNotas(notas);
   };
+
   return (
     <Card>
       <MDBox
@@ -62,9 +63,9 @@ const Index = () => {
               label="Notas al destinatario"
               multiline
               rows={12}
-              value={notas}
+              value={statusCard.Notas}
               onChange={(e) => handleChangeNotas(e.target.value.toUpperCase())}
-              defaultValue={notas}
+              defaultValue={statusCard.Notas}
               sx={{ width: "100%" }}
             />
           </MDBox>
@@ -74,4 +75,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default React.memo(Index);

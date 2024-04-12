@@ -67,7 +67,7 @@ export default function data(dt, onAceptarClick, setDocumentNote) {
         <MDBox ml={-1}>
           <MDBadge
             badgeContent={el.ApprovalStatus}
-            color={el.ApprovalStatus === "Aprovada" ? "success" : "error"}
+            color={el.ApprovalStatus === "Solicitud Aprovada" ? "success" : "error"}
             variant="gradient"
             size="sm"
           />
