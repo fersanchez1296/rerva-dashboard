@@ -35,7 +35,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
-  console.log("se renderiza");
   const [addDocument, setAddDocument] = React.useState(newDocumentFillsInterface);
   const { statusCard, newDocument } = newDocumentStore();
   const [updateSolicitud] = useUpdateSolicitudMutation();
@@ -96,6 +95,8 @@ const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
 
     console.log(solicitud, addDocument);
     const result = await updateSolicitud({ data: { addDocument, solicitud }, id: solicitud.Id });
+    statusCard.resetValues();
+    newDocument.resetValues();
     handleAceptarCerrar();
   };
 

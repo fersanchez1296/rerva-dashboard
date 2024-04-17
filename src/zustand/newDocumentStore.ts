@@ -36,6 +36,16 @@ export const newDocumentStore = create<newDocumentInterface & statusDocument>((s
           Notas: nota,
         },
       })),
+    resetValues: () => {
+      set({
+        statusCard: {
+          Destinatario: "",
+          Asunto: "",
+          idSolicitud: "",
+          Notas: "Sin Notas",
+        },
+      });
+    },
   },
   newDocument: {
     Autores: "",
@@ -67,5 +77,32 @@ export const newDocumentStore = create<newDocumentInterface & statusDocument>((s
           [field]: value,
         },
       })),
+    resetValues: () =>
+      set({
+        newDocument: {
+          Autores: "",
+          ["Compilador/Editor/Coordinador/Libro"]: "",
+          ["Tipo de Autoría"]: "",
+          ["Título"]: "",
+          ["Área"]: "",
+          Campo: "",
+          Disciplina: "",
+          ["Año"]: "",
+          ["País de la Publicación"]: "",
+          ["Municipios de estudio"]: "",
+          ["Tipo de documento"]: "",
+          ["Clasificación"]: "",
+          ["Nombre de la revista/libro"]: "",
+          ["Libros/Editorial"]: "",
+          ["Tipo de consulta"]: "",
+          Link: "",
+          Doi: "",
+          ["Número de páginas"]: "",
+          Idioma: "",
+          Disponibilidad: "",
+          ["Palabras Clave"]: "",
+          ["Tesis/Institución"]: "",
+        },
+      }),
   },
 }));

@@ -14,6 +14,24 @@ Coded by www.creative-tim.com
 */
 
 export default {
-  labels: ["M", "T", "W", "T", "F", "S", "S"],
-  datasets: { label: "Sales", data: [50, 20, 10, 22, 50, 10, 40] },
+  labels: [
+    "Ameca",
+    "San Martín",
+    "Talpa de Allende",
+    "Cócula",
+    "Hostotipaquillo",
+    "Tala",
+    "Teuchitlan",
+    "Ameca",
+    "San Martín",
+    "Talpa de Allende",
+    "Cócula",
+    "Hostotipaquillo",
+    "Tala",
+    "Teuchitlan",
+  ],
+  datasets: {
+    label: "Sales",
+    data: [1400, 1200, 1000, 800, 600, 400, 300, 200, 100, 90, 80, 70, 60, 50],
+  },
 };

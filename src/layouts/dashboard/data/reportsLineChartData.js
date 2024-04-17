@@ -15,11 +15,39 @@ Coded by www.creative-tim.com
 
 export default {
   sales: {
-    labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: { label: "Mobile apps", data: [50, 40, 300, 320, 500, 350, 200, 230, 500] },
+    labelsAbr: [
+      "Ameca",
+      "Atenguillo",
+      "Mixtlan",
+      "Talpa de Allende",
+      "Tala",
+      "Tequila",
+      "Cocula",
+      "Macota",
+      "Guachinango",
+      "Etzatlan",
+      "Teuchitlan",
+    ],
+    labels: [
+      "Ame",
+      "Ate",
+      "Mix",
+      "Talpa",
+      "Tala",
+      "Tequila",
+      "Cocula",
+      "Mascota",
+      "Gua",
+      "Etz",
+      "Teu",
+    ],
+    datasets: {
+      label: "Mobile Sales",
+      data: [800, 300, 40, 300, 320, 500, 350, 200, 230, 500, 350],
+    },
   },
   tasks: {
     labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: { label: "Desktop apps", data: [50, 40, 300, 220, 500, 250, 400, 230, 500] },
+    datasets: { label: "Desktop apps", data: [1400, 50, 40, 300, 220, 500, 250, 400, 230, 500] },
   },
 };
