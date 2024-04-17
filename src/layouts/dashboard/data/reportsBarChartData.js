@@ -14,24 +14,9 @@ Coded by www.creative-tim.com
 */
 
 export default {
-  labels: [
-    "Ameca",
-    "San Martín",
-    "Talpa de Allende",
-    "Cócula",
-    "Hostotipaquillo",
-    "Tala",
-    "Teuchitlan",
-    "Ameca",
-    "San Martín",
-    "Talpa de Allende",
-    "Cócula",
-    "Hostotipaquillo",
-    "Tala",
-    "Teuchitlan",
-  ],
+  labels: ["HCC", "CS", "BQ", "CAB", "CFMCT", "IT", "S/I", "MC"],
   datasets: {
-    label: "Sales",
-    data: [1400, 1200, 1000, 800, 600, 400, 300, 200, 100, 90, 80, 70, 60, 50],
+    label: "Publicaciones",
+    data: [],
   },
 };

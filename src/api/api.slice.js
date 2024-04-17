@@ -52,6 +52,13 @@ export const apiSlice = createApi({
       }),
       providesTags: ["Busquedas"],
     }),
+    dashboard_estadisticas: builder.query({
+      query: () => ({
+        url: `/dashboard/estadisticas`,
+        method: "GET",
+      }),
+      providesTags: ["Estadisticas"],
+    }),
   }),
   keepUnusedDataFor: 300,
 });
@@ -62,4 +69,5 @@ export const {
   useGetDocumentsQuery,
   useGetHistorialQuery,
   useBusquedasMutation,
+  useDashboard_estadisticasQuery,
 } = apiSlice;

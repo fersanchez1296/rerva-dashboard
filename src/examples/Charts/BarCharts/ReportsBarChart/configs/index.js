@@ -37,6 +37,22 @@ function configs(labels, datasets) {
         legend: {
           display: false,
         },
+        tooltip: {
+          enabled: true,
+          mode: "nearest",
+          callbacks: {
+            label: function (context) {
+              var label = context.dataset.label || "";
+              if (context.parsed.y !== null) {
+                label += ": " + context.parsed.y;
+              }
+              return label;
+            },
+            title: function () {
+              return "";
+            },
+          },
+        },
       },
       interaction: {
         intersect: false,

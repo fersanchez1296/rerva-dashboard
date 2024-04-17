@@ -44,8 +44,8 @@ import configs from "examples/Charts/BarCharts/ReportsBarChart/configs";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-function ReportsBarChart({ color, title, description, date, chart }) {
-  const { data, options } = configs(chart.labels || [], chart.datasets || {});
+function ReportsBarChart({ color, title, description, date, chart, labels }) {
+  const { data, options } = configs(labels || [], chart.datasets || {});
 
   return (
     <Card sx={{ height: "100%" }}>
@@ -101,6 +101,7 @@ ReportsBarChart.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   date: PropTypes.string.isRequired,
+  labels: PropTypes.array,
   chart: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.object])).isRequired,
 };
 

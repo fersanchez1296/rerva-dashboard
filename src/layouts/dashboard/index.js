@@ -28,16 +28,54 @@ import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
 // Data
+import { useDashboard_estadisticasQuery } from "api/api.slice";
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
-
+import { Spiner } from "components/Spiner/Spiner";
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 
 function Dashboard() {
+  const { data, isLoading } = useDashboard_estadisticasQuery();
   const { sales, tasks } = reportsLineChartData;
+  const labelsline = ["HCC", "CS", "BQ", "CAB", "CFMCT", "IT", "S/I", "MC"];
+  const labelsCountries = [
+    "ALM", // Alemania
+    "ARG", // Argentina
+    "AUT", // Austria
+    "BOL", // Bolivia
+    "BRA", // Brasil
+    "BUL", // Bulgaria
+    "CAN", // Canadá
+    "CHL", // Chile
+    "CHN", // China
+    "COL", // Colombia
+    "CRC", // Costa Rica
+    "CUB", // Cuba
+    "ECU", // Ecuador
+    "ESP", // España
+    "EEUU", // Estados Unidos
+    "FRA", // Francia
+    "HOL", // Holanda
+    "IND", // India
+    "ING", // Inglaterra
+    "ITA", // Italia
+    "JPN", // Japón
+    "MEX", // México
+    "NZL", // Nueva Zelanda
+    "PBL", // Países Bajos
+    "PER", // Perú
+    "RU", // Reino Unido
+    "RCH", // República Checa
+    "S/I", // S/I
+    "SUI", // Suiza
+    "VEN", // Venezuela
+  ];
 
+  if (isLoading) {
+    return <Spiner />;
+  }
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -49,12 +87,12 @@ function Dashboard() {
                 color="dark"
                 icon="article"
                 title="Total de Documentos"
-                count={281}
-                percentage={{
-                  color: "success",
-                  amount: "+55%",
-                  label: "than lask week",
-                }}
+                count={data.documentosData.tDocumentos}
+                // percentage={{
+                //   color: "success",
+                //   amount: "+55%",
+                //   label: "than lask week",
+                // }}
               />
             </MDBox>
           </Grid>
@@ -63,12 +101,12 @@ function Dashboard() {
               <ComplexStatisticsCard
                 icon="group"
                 title="Total del Autores"
-                count="2,300"
-                percentage={{
-                  color: "success",
-                  amount: "+3%",
-                  label: "than last month",
-                }}
+                count={data.documentosData.tAutores}
+                // percentage={{
+                //   color: "success",
+                //   amount: "+3%",
+                //   label: "than last month",
+                // }}
               />
             </MDBox>
           </Grid>
@@ -78,12 +116,12 @@ function Dashboard() {
                 color="success"
                 icon="escalator"
                 title="Total de Áreas"
-                count="34k"
-                percentage={{
-                  color: "success",
-                  amount: "+1%",
-                  label: "than yesterday",
-                }}
+                count={data.documentosData.tAreas}
+                // percentage={{
+                //   color: "success",
+                //   amount: "+1%",
+                //   label: "than yesterday",
+                // }}
               />
             </MDBox>
           </Grid>
@@ -93,12 +131,12 @@ function Dashboard() {
                 color="primary"
                 icon="escalator"
                 title="Total de Campos"
-                count="34k"
-                percentage={{
-                  color: "success",
-                  amount: "+1%",
-                  label: "than yesterday",
-                }}
+                count={data.documentosData.tCampos}
+                // percentage={{
+                //   color: "success",
+                //   amount: "+1%",
+                //   label: "than yesterday",
+                // }}
               />
             </MDBox>
           </Grid>
@@ -108,12 +146,12 @@ function Dashboard() {
                 color="primary"
                 icon="escalator"
                 title="Total de Disciplinas"
-                count="+91"
-                percentage={{
-                  color: "success",
-                  amount: "",
-                  label: "Just updated",
-                }}
+                count={data.documentosData.tDisciplinas}
+                // percentage={{
+                //   color: "success",
+                //   amount: "",
+                //   label: "Just updated",
+                // }}
               />
             </MDBox>
           </Grid>
@@ -123,12 +161,12 @@ function Dashboard() {
                 color="success"
                 icon="public"
                 title="Países de Publicación"
-                count="+91"
-                percentage={{
-                  color: "success",
-                  amount: "",
-                  label: "Just updated",
-                }}
+                count={data.documentosData.tPaises}
+                // percentage={{
+                //   color: "success",
+                //   amount: "",
+                //   label: "Just updated",
+                // }}
               />
             </MDBox>
           </Grid>
@@ -137,12 +175,12 @@ function Dashboard() {
               <ComplexStatisticsCard
                 icon="business"
                 title="Total de Instituciones"
-                count="2,300"
-                percentage={{
-                  color: "success",
-                  amount: "+3%",
-                  label: "than last month",
-                }}
+                count={data.documentosData.tInstituciones}
+                // percentage={{
+                //   color: "success",
+                //   amount: "+3%",
+                //   label: "than last month",
+                // }}
               />
             </MDBox>
           </Grid>
@@ -152,12 +190,12 @@ function Dashboard() {
                 color="dark"
                 icon="newspaper"
                 title="Total de Revistas"
-                count={281}
-                percentage={{
-                  color: "success",
-                  amount: "+55%",
-                  label: "than lask week",
-                }}
+                count={data.documentosData.tRevistas}
+                // percentage={{
+                //   color: "success",
+                //   amount: "+55%",
+                //   label: "than lask week",
+                // }}
               />
             </MDBox>
           </Grid>
@@ -171,7 +209,8 @@ function Dashboard() {
                   title="website views"
                   description="Last Campaign Performance"
                   date="campaign sent 2 days ago"
-                  chart={reportsBarChartData}
+                  labels={labelsCountries}
+                  chart={data.documentosGraphicsData}
                 />
               </MDBox>
             </Grid>
@@ -186,7 +225,8 @@ function Dashboard() {
                     </>
                   }
                   date="updated 4 min ago"
-                  chart={sales}
+                  labels={labelsline}
+                  chart={data.documentosGraphicsData}
                 />
               </MDBox>
             </Grid>

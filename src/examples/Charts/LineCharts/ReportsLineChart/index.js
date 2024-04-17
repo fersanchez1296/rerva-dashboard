@@ -55,8 +55,8 @@ ChartJS.register(
   Filler
 );
 
-function ReportsLineChart({ color, title, description, date, chart }) {
-  const { data, options } = configs(chart.labels || [], chart.datasets || {});
+function ReportsLineChart({ color, title, description, date, chart, labels }) {
+  const { data, options } = configs(labels || [], chart.datasets || {});
 
   return (
     <Card sx={{ height: "100%" }}>
@@ -112,6 +112,7 @@ ReportsLineChart.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   date: PropTypes.string.isRequired,
+  labels: PropTypes.array,
   chart: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.object])).isRequired,
 };
 
