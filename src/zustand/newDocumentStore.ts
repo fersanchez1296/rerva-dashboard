@@ -1,10 +1,47 @@
-import { create } from "zustand";
+import { create, State } from "zustand";
 import { newDocumentInterface } from "assets/interfaces/newDocument.interface";
 import { statusDocument } from "assets/interfaces/statusDocument.interface";
+import { statusCardFillsInterface } from "assets/interfaces/statusCardFills.interface";
+import { newDocumentFillsInterface } from "assets/interfaces/newDocumentFills.interface";
+
+type StateStatusCrad = statusCardFillsInterface;
+type StateNewDocument = newDocumentFillsInterface;
+
+const statusCardInitialState: StateStatusCrad = {
+  Destinatario: "",
+  Asunto: "",
+  idSolicitud: "",
+  Notas: "Sin Notas",
+};
+
+const newDocumentInitialState: StateNewDocument = {
+  Autores: "",
+  ["Compilador/Editor/Coordinador/Libro"]: "",
+  ["Tipo de Autoría"]: "",
+  ["Título"]: "",
+  ["Área"]: "",
+  Campo: "",
+  Disciplina: "",
+  ["Año"]: "",
+  ["País de la Publicación"]: "",
+  ["Municipios de estudio"]: "",
+  ["Tipo de documento"]: "",
+  ["Clasificación"]: "",
+  ["Nombre de la revista/libro"]: "",
+  ["Libros/Editorial"]: "",
+  ["Tipo de consulta"]: "",
+  Link: "",
+  Doi: "",
+  ["Número de páginas"]: "",
+  Idioma: "",
+  Disponibilidad: "",
+  ["Palabras Clave"]: "",
+  ["Tesis/Institución"]: "",
+};
 
 export const newDocumentStore = create<newDocumentInterface & statusDocument>((set) => ({
   statusCard: {
-    Destinatario: "",
+    ...statusCardInitialState,
     setDestinatario: (destinatario: string) =>
       set((state) => ({
         statusCard: {
@@ -12,7 +49,6 @@ export const newDocumentStore = create<newDocumentInterface & statusDocument>((s
           Destinatario: destinatario,
         },
       })),
-    Asunto: "",
     setAsunto: (asunto: string) =>
       set((state) => ({
         statusCard: {
@@ -20,7 +56,6 @@ export const newDocumentStore = create<newDocumentInterface & statusDocument>((s
           Asunto: asunto,
         },
       })),
-    idSolicitud: "",
     setIdSolicitud: (id: string) =>
       set((state) => ({
         statusCard: {
@@ -28,7 +63,6 @@ export const newDocumentStore = create<newDocumentInterface & statusDocument>((s
           idSolicitud: id,
         },
       })),
-    Notas: "Sin Notas",
     setNotas: (nota: string) =>
       set((state) => ({
         statusCard: {
@@ -36,40 +70,10 @@ export const newDocumentStore = create<newDocumentInterface & statusDocument>((s
           Notas: nota,
         },
       })),
-    resetValues: () => {
-      set({
-        statusCard: {
-          Destinatario: "",
-          Asunto: "",
-          idSolicitud: "",
-          Notas: "Sin Notas",
-        },
-      });
-    },
+    resetValues: () => set(statusCardInitialState),
   },
   newDocument: {
-    Autores: "",
-    ["Compilador/Editor/Coordinador/Libro"]: "",
-    ["Tipo de Autoría"]: "",
-    ["Título"]: "",
-    ["Área"]: "",
-    Campo: "",
-    Disciplina: "",
-    ["Año"]: "",
-    ["País de la Publicación"]: "",
-    ["Municipios de estudio"]: "",
-    ["Tipo de documento"]: "",
-    ["Clasificación"]: "",
-    ["Nombre de la revista/libro"]: "",
-    ["Libros/Editorial"]: "",
-    ["Tipo de consulta"]: "",
-    Link: "",
-    Doi: "",
-    ["Número de páginas"]: "",
-    Idioma: "",
-    Disponibilidad: "",
-    ["Palabras Clave"]: "",
-    ["Tesis/Institución"]: "",
+    ...newDocumentInitialState,
     setField: (field: string, value: string) =>
       set((state) => ({
         newDocument: {
@@ -77,32 +81,6 @@ export const newDocumentStore = create<newDocumentInterface & statusDocument>((s
           [field]: value,
         },
       })),
-    resetValues: () =>
-      set({
-        newDocument: {
-          Autores: "",
-          ["Compilador/Editor/Coordinador/Libro"]: "",
-          ["Tipo de Autoría"]: "",
-          ["Título"]: "",
-          ["Área"]: "",
-          Campo: "",
-          Disciplina: "",
-          ["Año"]: "",
-          ["País de la Publicación"]: "",
-          ["Municipios de estudio"]: "",
-          ["Tipo de documento"]: "",
-          ["Clasificación"]: "",
-          ["Nombre de la revista/libro"]: "",
-          ["Libros/Editorial"]: "",
-          ["Tipo de consulta"]: "",
-          Link: "",
-          Doi: "",
-          ["Número de páginas"]: "",
-          Idioma: "",
-          Disponibilidad: "",
-          ["Palabras Clave"]: "",
-          ["Tesis/Institución"]: "",
-        },
-      }),
+    resetValues: () => set(newDocumentInitialState),
   },
 }));

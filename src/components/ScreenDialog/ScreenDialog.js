@@ -47,7 +47,16 @@ const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
     newDocument.setField("Título", objeto["Título"]);
     newDocument.setField("Link", objeto.Link);
     newDocument.setField("Doi", objeto.DOI);
-  }, [openBool]);
+  }, [
+    openBool === true,
+    objeto.Email,
+    objeto.ApprovalStatus,
+    objeto._id,
+    objeto.Autor,
+    objeto["Título"],
+    objeto.Link,
+    objeto.DOI,
+  ]);
 
   useEffect(() => {
     setAddDocument({
@@ -93,11 +102,12 @@ const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
       Notas: statusCard.Notas,
     };
 
-    console.log(solicitud, addDocument);
     const result = await updateSolicitud({ data: { addDocument, solicitud }, id: solicitud.Id });
-    statusCard.resetValues();
-    newDocument.resetValues();
-    handleAceptarCerrar();
+    if (result.data && typeof result.data.status === "number" && result.data.status === 200) {
+      statusCard.resetValues();
+      newDocument.resetValues();
+      handleAceptarCerrar();
+    }
   };
 
   return (
