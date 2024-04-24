@@ -35,6 +35,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
+  console.log(objeto);
   const [addDocument, setAddDocument] = React.useState(newDocumentFillsInterface);
   const { statusCard, newDocument } = newDocumentStore();
   const [updateSolicitud] = useUpdateSolicitudMutation();
@@ -43,6 +44,8 @@ const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
     statusCard.setDestinatario(objeto.Email);
     statusCard.setAsunto(objeto.ApprovalStatus);
     statusCard.setIdSolicitud(objeto._id);
+    statusCard.setAutor(objeto.Autor);
+    statusCard.setTitulo(objeto["Título"]);
     newDocument.setField("Autores", objeto.Autor);
     newDocument.setField("Título", objeto["Título"]);
     newDocument.setField("Link", objeto.Link);
@@ -100,6 +103,8 @@ const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
       Asunto: statusCard.Asunto,
       Id: statusCard.idSolicitud,
       Notas: statusCard.Notas,
+      Autor: statusCard.Autor,
+      Titulo: statusCard.Titulo,
     };
 
     const result = await updateSolicitud({ data: { addDocument, solicitud }, id: solicitud.Id });

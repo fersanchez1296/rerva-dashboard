@@ -3,6 +3,8 @@ interface statusCard {
   Asunto: string;
   idSolicitud: string;
   Notas: string;
+  Autor: string;
+  Titulo: string;
 }
 
 export const statusCardFillsInterface: statusCard = {
@@ -10,4 +12,6 @@ export const statusCardFillsInterface: statusCard = {
   Asunto: "",
   idSolicitud: "",
   Notas: "Sin Notas",
+  Autor: "",
+  Titulo: "",
 };

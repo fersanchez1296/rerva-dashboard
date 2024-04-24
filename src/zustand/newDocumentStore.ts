@@ -12,6 +12,8 @@ const statusCardInitialState: StateStatusCrad = {
   Asunto: "",
   idSolicitud: "",
   Notas: "Sin Notas",
+  Autor: "",
+  Titulo: "",
 };
 
 const newDocumentInitialState: StateNewDocument = {
@@ -47,6 +49,20 @@ export const newDocumentStore = create<newDocumentInterface & statusDocument>((s
         statusCard: {
           ...state.statusCard,
           Destinatario: destinatario,
+        },
+      })),
+    setAutor: (autor: string) =>
+      set((state) => ({
+        statusCard: {
+          ...state.statusCard,
+          Autor: autor,
+        },
+      })),
+    setTitulo: (titulo: string) =>
+      set((state) => ({
+        statusCard: {
+          ...state.statusCard,
+          Titulo: titulo,
         },
       })),
     setAsunto: (asunto: string) =>
