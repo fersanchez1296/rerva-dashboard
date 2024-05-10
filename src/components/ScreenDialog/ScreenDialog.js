@@ -35,7 +35,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const ScreenDialog = ({ openBool, handleAceptarCerrar, objeto }) => {
-  console.log(objeto);
   const [addDocument, setAddDocument] = React.useState(newDocumentFillsInterface);
   const { statusCard, newDocument } = newDocumentStore();
   const [updateSolicitud] = useUpdateSolicitudMutation();
