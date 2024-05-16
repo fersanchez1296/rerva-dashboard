@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+//store
+import { newDocumentStore } from "../../zustand/newDocumentStore.ts";
+//mui library
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import ListItemText from "@mui/material/ListItemText";
-import ListItem from "@mui/material/ListItem";
 import List from "@mui/material/List";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,39 +12,51 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import PropTypes from "prop-types";
-import TextField from "@mui/material/TextField";
 import SaveIcon from "@mui/icons-material/Save";
-// Material Dashboard 2 React components
-import MDBox from "components/MDBox";
-import MDTypography from "components/MDTypography";
-import MDInput from "components/MDInput";
 import Grid from "@mui/material/Unstable_Grid2";
-import Card from "@mui/material/Card";
+//api
 import { useUpdateSolicitudMutation } from "api/api.slice";
+//card components
+import StatusCard from "./statusCard/Index";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export const RejectScreen = ({ openBool, handleAceptarCerrar, objeto }) => {
   const [updateSolicitud] = useUpdateSolicitudMutation();
-  const [notas, setNotas] = React.useState("Sin Notas");
-  const [age, setAge] = React.useState("");
+  const { statusCard } = newDocumentStore();
 
-  const handleChangeNotas = (value) => {
-    setNotas(value);
-  };
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-  const handleEnviar = () => {
-    const solicitud = JSON.parse(JSON.stringify(objeto));
-    solicitud.EndedAt = new Date();
-    solicitud.DocumentStatus = "Finalizada";
-    solicitud.Notas = notas;
-    (async () => {
-      const result = await updateSolicitud({ data: solicitud, id: solicitud._id });
+  useEffect(() => {
+    statusCard.setDestinatario(objeto.Email);
+    statusCard.setAsunto(objeto.ApprovalStatus);
+    statusCard.setIdSolicitud(objeto._id);
+    statusCard.setAutor(objeto.Autor);
+    statusCard.setTitulo(objeto["Título"]);
+  }, [
+    openBool === true,
+    objeto.Email,
+    objeto.ApprovalStatus,
+    objeto._id,
+    objeto.Autor,
+    objeto["Título"],
+  ]);
+
+  const handleEnviar = async () => {
+    const solicitud = {
+      Destinatario: statusCard.Destinatario,
+      Asunto: statusCard.Asunto,
+      Id: statusCard.idSolicitud,
+      Notas: statusCard.Notas,
+      Autor: statusCard.Autor,
+      Titulo: statusCard.Titulo,
+    };
+
+    const result = await updateSolicitud({ data: { solicitud }, id: solicitud.Id });
+    if (result.data && typeof result.data.status === "number" && result.data.status === 200) {
+      statusCard.resetValues();
       handleAceptarCerrar();
-    })();
+    }
   };
 
   return (
@@ -80,48 +93,7 @@ export const RejectScreen = ({ openBool, handleAceptarCerrar, objeto }) => {
         <List>
           <Grid container spacing={2} sx={{ mt: 5 }}>
             <Grid xs={12} md={12}>
-              <Card>
-                <MDBox
-                  variant="gradient"
-                  bgColor="success"
-                  borderRadius="lg"
-                  coloredShadow="info"
-                  mx={2}
-                  mt={-3}
-                  p={2}
-                  mb={1}
-                  textAlign="center"
-                >
-                  <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-                    Status solicitud
-                  </MDTypography>
-                </MDBox>
-                <MDBox pt={4} pb={6} px={3}>
-                  <MDBox component="form" role="form">
-                    <MDBox mb={2}>
-                      <MDInput type="text" value={objeto.Email} disabled fullWidth />
-                    </MDBox>
-                    <MDBox mb={2}>
-                      <MDInput type="text" value={objeto.ApprovalStatus} disabled fullWidth />
-                    </MDBox>
-                    <MDBox mb={2}>
-                      <MDInput type="text" value={objeto._id} disabled fullWidth />
-                    </MDBox>
-                    <MDBox mb={2}>
-                      <TextField
-                        id="outlined-multiline-static"
-                        label="Escribe el mensaje"
-                        multiline
-                        rows={12}
-                        value={notas}
-                        onChange={(e) => handleChangeNotas(e.target.value.toUpperCase())}
-                        defaultValue={notas}
-                        sx={{ width: "100%" }}
-                      />
-                    </MDBox>
-                  </MDBox>
-                </MDBox>
-              </Card>
+              <StatusCard />
             </Grid>
           </Grid>
         </List>
