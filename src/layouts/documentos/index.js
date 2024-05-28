@@ -15,7 +15,7 @@ import documentosTableData from "layouts/documentos/data/documentosTableData";
 import AddEditDocument from "components/AddEditDocument/AddEditDocument";
 import DeleteDocument from "components/AddEditDocument/DeleteDocument";
 function Documentos() {
-  const { data: dt, isLoading, refetch } = useGetDocumentsQuery();
+  const { data: dt, isLoading, isFetching, refetch } = useGetDocumentsQuery();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   let emptyInfo = {
@@ -28,8 +28,8 @@ function Documentos() {
     Link: "",
   };
 
-  if (isLoading) {
-    return <Spiner />;
+  if (isLoading || isFetching) {
+    return <Spiner showspiner />;
   }
 
   if (!dt) {
@@ -88,7 +88,7 @@ function Documentos() {
           </MDButton>
           <MDButton color={"warning"} variant={"contained"} onClick={handleClickActualizar}>
             <MDTypography component="a" variant="caption" color="white" fontWeight="medium">
-              Actualizar Solicitudes
+              Actualizar Documentos
             </MDTypography>
           </MDButton>
           <MDBox>
@@ -142,7 +142,7 @@ function Documentos() {
       <DeleteDocument
         openBool={isDeleteDialogOpen}
         handleAceptarCerrar={handleAceptarCerrardelete}
-        deleteById={selectedId}
+        deleteById={selectedId.id}
       />
     </>
   );

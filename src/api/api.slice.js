@@ -3,9 +3,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://148.202.89.67:4000/api/",
+    //baseUrl: "http://148.202.89.67:4000/api/",
     //baseUrl: "https://rerva-backend-104f4d2354cf.herokuapp.com/api/",
-   // baseUrl: "http://localhost:4000/api/",
+    baseUrl: "http://localhost:4000/api/",
   }),
   tagTypes: ["Solicitudes", "Historial"],
   endpoints: (builder) => ({
@@ -21,6 +21,13 @@ export const apiSlice = createApi({
         url: `/updateSolicitud/${id}`,
         body: data,
         method: "PUT",
+      }),
+      invalidatesTags: ["Solicitudes"],
+    }),
+    deleteSolicitud: builder.mutation({
+      query: ({ id }) => ({
+        url: `/deleteSolicitud/${id}`,
+        method: "DELETE",
       }),
       invalidatesTags: ["Solicitudes"],
     }),
@@ -70,4 +77,5 @@ export const {
   useGetHistorialQuery,
   useBusquedasMutation,
   useDashboard_estadisticasQuery,
+  useDeleteSolicitudMutation,
 } = apiSlice;

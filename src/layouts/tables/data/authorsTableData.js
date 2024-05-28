@@ -18,13 +18,18 @@ import React from "react";
 // Material Dashboard 2 React components
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
-
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 // Images
 let statusSolicitud = {};
-export default function data(dt, onAceptarClick, handleAceptarClickRechazar) {
-  console.log(dt);
+export default function data(
+  dt,
+  onAceptarClick,
+  handleAceptarClickRechazar,
+  handleAceptardeleteClick
+) {
   return {
     columns: [
+      { Header: "Eliminar", accessor: "delete", width: "35%", align: "left" },
       { Header: "ID", accessor: "id", width: "35%", align: "left" },
       { Header: "Autor", accessor: "autor", width: "35%", align: "left" },
       { Header: "Título documento", accessor: "titulo_documento", align: "left" },
@@ -36,6 +41,20 @@ export default function data(dt, onAceptarClick, handleAceptarClickRechazar) {
     ],
 
     rows: dt.map((el) => ({
+      delete: (
+        <MDButton
+          color={"error"}
+          variant={"contained"}
+          onClick={() => {
+            statusSolicitud.id = el._id;
+            handleAceptardeleteClick();
+          }}
+        >
+          <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
+            <DeleteForeverIcon />
+          </MDTypography>
+        </MDButton>
+      ),
       id: (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
           {el._id}

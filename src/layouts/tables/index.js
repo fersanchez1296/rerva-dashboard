@@ -13,10 +13,11 @@ import authorsTableData from "layouts/tables/data/authorsTableData";
 import ScreenDialog from "components/ScreenDialog/ScreenDialog";
 import { RejectScreen } from "components/RejectScreen/RejectScreen";
 import { useGetSolicitudesQuery } from "api/api.slice";
-
+import DeleteDocument from "components/AddEditDocument/DeleteDocument";
 function Tables() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDialogRejectOpen, setIsRejectDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { data: dt, isLoading, refetch } = useGetSolicitudesQuery();
   const handleClickActualizar = () => {
     refetch();
@@ -38,6 +39,13 @@ function Tables() {
     setIsRejectDialogOpen(false);
   };
 
+  const handleAceptardeleteClick = () => {
+    setIsDeleteDialogOpen(true);
+  };
+  const handleAceptarCerrardelete = () => {
+    setIsDeleteDialogOpen(false);
+  };
+
   let emptyInfo = {
     _id: 0,
     Autor: "",
@@ -49,7 +57,7 @@ function Tables() {
   };
 
   if (isLoading) {
-    return <Spiner />;
+    return <Spiner showspiner />;
   }
 
   if (!dt) {
@@ -59,7 +67,8 @@ function Tables() {
   const { columns, rows, solicitudStatus } = authorsTableData(
     dt,
     handleAceptarClick,
-    handleAceptarClickRechazar
+    handleAceptarClickRechazar,
+    handleAceptardeleteClick
   );
   const objetoEncontrado = {
     ...dt.find((objeto) => objeto._id === solicitudStatus.id),
@@ -139,6 +148,11 @@ function Tables() {
         openBool={isDialogRejectOpen}
         handleAceptarCerrar={handleAceptarCerrarRechazar}
         objeto={objetoEncontrado === undefined ? emptyInfo : objetoEncontrado}
+      />
+      <DeleteDocument
+        openBool={isDeleteDialogOpen}
+        handleAceptarCerrar={handleAceptarCerrardelete}
+        deleteById={solicitudStatus}
       />
     </>
   );

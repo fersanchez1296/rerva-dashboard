@@ -74,7 +74,7 @@ function Dashboard() {
   ];
 
   if (isLoading) {
-    return <Spiner />;
+    return <Spiner showspiner />;
   }
   return (
     <DashboardLayout>

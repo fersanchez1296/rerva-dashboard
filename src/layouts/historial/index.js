@@ -28,7 +28,7 @@ function Historial() {
   };
 
   if (isLoading) {
-    return <Spiner />;
+    return <Spiner showspiner />;
   }
 
   if (!dt) {
