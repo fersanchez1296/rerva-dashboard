@@ -17,15 +17,6 @@ function Historial() {
   const { data: dt, isLoading, refetch } = useGetHistorialQuery();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [documentNote, setDocumentNote] = React.useState("");
-  let emptyInfo = {
-    _id: 0,
-    Autor: "",
-    Título: "",
-    Email: "",
-    Status: "",
-    ApprovalStatus: "",
-    Link: "",
-  };
 
   if (isLoading) {
     return <Spiner showspiner />;
