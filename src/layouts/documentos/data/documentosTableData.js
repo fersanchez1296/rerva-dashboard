@@ -209,7 +209,6 @@ export default function data(dt, onAceptarClick, onAceptarDeleteClick) {
         </MDTypography>
       ),
     })),
-
     newOrEdit: newOrEdit,
     selectedId: selectedId,
   };

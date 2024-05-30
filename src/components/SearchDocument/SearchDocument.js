@@ -18,13 +18,36 @@ import busquedasTableData from "components/SearchDocument/data/busquedasTableDat
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
+//Add-Edit-Document
+import AddEditDocument from "components/AddEditDocument/AddEditDocument";
+import DeleteDocument from "components/AddEditDocument/DeleteDocument";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export const SearchDocument = ({ openBool, handleAceptarCerrar, objeto }) => {
-  const { columns, rows } = busquedasTableData(objeto);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const handleAceptarClick = () => {
+    setIsDialogOpen(true);
+  };
+  const handleAceptarCerrarDialogo = () => {
+    setIsDialogOpen(false);
+  };
 
+  const handleAceptardeleteClick = () => {
+    setIsDeleteDialogOpen(true);
+  };
+  const handleAceptarCerrardelete = () => {
+    setIsDeleteDialogOpen(false);
+  };
+
+  const { columns, rows, selectedId } = busquedasTableData(
+    objeto,
+    handleAceptarClick,
+    handleAceptardeleteClick
+  );
+  const objetoEncontrado = { ...objeto.find((obj) => obj._id === selectedId) };
   return (
     <React.Fragment>
       <Dialog
@@ -80,6 +103,16 @@ export const SearchDocument = ({ openBool, handleAceptarCerrar, objeto }) => {
           </Grid>
         </MDBox>
       </Dialog>
+      <AddEditDocument
+        openBool={isDialogOpen}
+        handleAceptarCerrar={handleAceptarCerrarDialogo}
+        objeto={objetoEncontrado === undefined ? emptyInfo : objetoEncontrado}
+      />
+      <DeleteDocument
+        openBool={isDeleteDialogOpen}
+        handleAceptarCerrar={handleAceptarCerrardelete}
+        deleteById={selectedId.id}
+      />
     </React.Fragment>
   );
 };

@@ -20,11 +20,18 @@ import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 import MDBadge from "components/MDBadge";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 
-export default function data(objeto, onAceptarClick) {
+let newOrEdit = "";
+let selectedId = "";
+export default function data(objeto, onAceptarClick, onAceptarDeleteClick) {
+  console.log(objeto);
   if (objeto.length > 0) {
     return {
       columns: [
+        { Header: "Editar", accessor: "edit", width: "35%", align: "left" },
+        { Header: "Eliminar", accessor: "delete", width: "35%", align: "left" },
         { Header: "Título", accessor: "titulo", width: "35%", align: "left" },
         { Header: "Año", accessor: "anio", width: "35%", align: "center" },
         { Header: "Idioma", accessor: "idioma", width: "35%", align: "left" },
@@ -48,6 +55,46 @@ export default function data(objeto, onAceptarClick) {
         { Header: "Número de páginas", accessor: "numero_paginas", width: "35%", align: "left" },
       ],
       rows: objeto.map((el) => ({
+        delete: (
+          <MDButton
+            color={"error"}
+            variant={"contained"}
+            onClick={() => {
+              selectedId = el._id;
+              onAceptarDeleteClick();
+            }}
+          >
+            <MDTypography
+              component="a"
+              href="#"
+              variant="caption"
+              color="white"
+              fontWeight="medium"
+            >
+              <DeleteForeverIcon />
+            </MDTypography>
+          </MDButton>
+        ),
+        edit: (
+          <MDButton
+            color={"info"}
+            variant={"contained"}
+            onClick={() => {
+              selectedId = el._id;
+              onAceptarClick();
+            }}
+          >
+            <MDTypography
+              component="a"
+              href="#"
+              variant="caption"
+              color="white"
+              fontWeight="medium"
+            >
+              <EditNoteIcon />
+            </MDTypography>
+          </MDButton>
+        ),
         titulo: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
             {el["Título"]}
@@ -166,11 +213,15 @@ export default function data(objeto, onAceptarClick) {
           </MDTypography>
         ),
       })),
+      newOrEdit: newOrEdit,
+      selectedId: selectedId,
     };
   } else {
     return {
       columns: [],
       rows: [],
+      newOrEdit: newOrEdit,
+      selectedId: selectedId,
     };
   }
 }
