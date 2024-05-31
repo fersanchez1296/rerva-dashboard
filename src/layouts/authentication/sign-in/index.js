@@ -37,11 +37,29 @@ import MDButton from "components/MDButton";
 
 // Authentication layout components
 import BasicLayout from "layouts/authentication/components/BasicLayout";
+//api
+const [login, { isLoading, error }] = useLoginMutation();
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
 function Basic() {
+  const [user, setUser] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const handleChange = (input, value) => {
+    input === "user" ? setUser(value) : setPassword(value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await login({ user, password });
+      setToken(data.token);
+    } catch (err) {
+      console.error("Failed to login", err);
+    }
+  };
   return (
     <BasicLayout image={bgImage}>
       <Card>
@@ -63,10 +81,20 @@ function Basic() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="text" label="Usuario" fullWidth />
+              <MDInput
+                type="text"
+                label="Usuario"
+                fullWidth
+                onChange={(e) => handleChange("user", e.target.value)}
+              />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput
+                type="password"
+                label="Password"
+                fullWidth
+                onChange={(e) => handleChange("password", e.target.value)}
+              />
             </MDBox>
             <MDBox mt={4} mb={1}>
               <MDButton variant="gradient" color="info" fullWidth>

@@ -66,6 +66,13 @@ export const apiSlice = createApi({
       }),
       providesTags: ["Estadisticas"],
     }),
+    login: builder.mutation({
+      query: (credentials) => ({
+        url: "/login",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
   }),
   keepUnusedDataFor: 300,
 });
@@ -78,4 +85,5 @@ export const {
   useBusquedasMutation,
   useDashboard_estadisticasQuery,
   useDeleteSolicitudMutation,
+  useLoginMutation,
 } = apiSlice;
