@@ -12,11 +12,13 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
+//react
+import React from "react";
 
 import { useState } from "react";
 
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -38,14 +40,19 @@ import MDButton from "components/MDButton";
 // Authentication layout components
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 //api
-const [login, { isLoading, error }] = useLoginMutation();
-
+import { useLoginMutation } from "api/api.slice";
+//Store
+import { useAuthStore } from "../../../zustand/authStore.ts";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import { Store } from "@mui/icons-material";
 
 function Basic() {
+  const [login, { isLoading, error }] = useLoginMutation();
   const [user, setUser] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const navigate = useNavigate();
+  const setToken = useAuthStore((state) => state.setToken);
 
   const handleChange = (input, value) => {
     input === "user" ? setUser(value) : setPassword(value);
@@ -55,11 +62,14 @@ function Basic() {
     e.preventDefault();
     try {
       const { data } = await login({ user, password });
+      console.log(data);
       setToken(data.token);
+      navigate("/dashboard");
     } catch (err) {
       console.error("Failed to login", err);
     }
   };
+
   return (
     <BasicLayout image={bgImage}>
       <Card>
@@ -97,7 +107,7 @@ function Basic() {
               />
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton variant="gradient" color="info" fullWidth onClick={handleSubmit}>
                 sign in
               </MDButton>
             </MDBox>

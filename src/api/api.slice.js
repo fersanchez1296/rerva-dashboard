@@ -6,6 +6,7 @@ export const apiSlice = createApi({
     //baseUrl: "http://148.202.89.67:4000/api/",
     //baseUrl: "https://rerva-backend-104f4d2354cf.herokuapp.com/api/",
     baseUrl: "http://localhost:4000/api/",
+    credentials: "include",
   }),
   tagTypes: ["Solicitudes", "Historial"],
   endpoints: (builder) => ({
@@ -73,6 +74,12 @@ export const apiSlice = createApi({
         body: credentials,
       }),
     }),
+    logout: builder.mutation({
+      query: () => ({
+        url: "/logout",
+        method: "POST",
+      }),
+    }),
   }),
   keepUnusedDataFor: 300,
 });
@@ -86,4 +93,5 @@ export const {
   useDashboard_estadisticasQuery,
   useDeleteSolicitudMutation,
   useLoginMutation,
+  useLogoutMutation,
 } = apiSlice;

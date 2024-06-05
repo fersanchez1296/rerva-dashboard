@@ -1,5 +1,5 @@
-import create from "zustand";
-
+import { create } from "zustand";
+import Cookies from "js-cookie";
 interface authData {
   token: string;
   setToken: (token: string) => void;
@@ -7,7 +7,13 @@ interface authData {
 }
 
 export const useAuthStore = create<authData>((set) => ({
-  token: null,
-  setToken: (token) => set({ token }),
-  clearToken: () => set({ token: null }),
+  token: Cookies.get("token") || null,
+  setToken: (token) => {
+    Cookies.set("token", token, { expires: 1 });
+    set({ token });
+  },
+  clearToken: () => {
+    Cookies.remove("token");
+    set({ token: null });
+  },
 }));
