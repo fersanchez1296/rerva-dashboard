@@ -53,6 +53,7 @@ function Basic() {
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate();
   const setToken = useAuthStore((state) => state.setToken);
+  const setIsAuth = useAuthStore((state) => state.setisAuth);
 
   const handleChange = (input, value) => {
     input === "user" ? setUser(value) : setPassword(value);
@@ -62,8 +63,8 @@ function Basic() {
     e.preventDefault();
     try {
       const { data } = await login({ user, password });
-      console.log(data);
       setToken(data.token);
+      setIsAuth(true);
       navigate("/dashboard");
     } catch (err) {
       console.error("Failed to login", err);

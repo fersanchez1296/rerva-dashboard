@@ -4,8 +4,8 @@ import { useAuthStore } from "../../../zustand/authStore.ts";
 
 const PrivateRoute = () => {
   const token = useAuthStore((state) => state.token);
-  console.log(token);
-  return token ? <Outlet /> : <Navigate to="/login" />;
+  const isAuth = useAuthStore((state) => state.isAuth);
+  return token && isAuth ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;
