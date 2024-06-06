@@ -67,6 +67,13 @@ export const apiSlice = createApi({
       }),
       providesTags: ["Estadisticas"],
     }),
+    register: builder.mutation({
+      query: (credentials) => ({
+        url: "/register",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
     login: builder.mutation({
       query: (credentials) => ({
         url: "/login",
@@ -94,4 +101,5 @@ export const {
   useDeleteSolicitudMutation,
   useLoginMutation,
   useLogoutMutation,
+  useRegisterMutation,
 } = apiSlice;

@@ -53,7 +53,8 @@ function Basic() {
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate();
   const setToken = useAuthStore((state) => state.setToken);
-  const setIsAuth = useAuthStore((state) => state.setisAuth);
+  const setIsAuth = useAuthStore((state) => state.setIsAuth);
+  const setName = useAuthStore((state) => state.setName);
 
   const handleChange = (input, value) => {
     input === "user" ? setUser(value) : setPassword(value);
@@ -64,6 +65,7 @@ function Basic() {
     try {
       const { data } = await login({ user, password });
       setToken(data.token);
+      setName(data.nombre);
       setIsAuth(true);
       navigate("/dashboard");
     } catch (err) {

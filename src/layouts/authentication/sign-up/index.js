@@ -13,6 +13,8 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
+import React from "react";
+
 // react-router-dom components
 import { Link } from "react-router-dom";
 
@@ -32,7 +34,38 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 // Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 
+//api
+import { useRegisterMutation } from "../../../api/api.slice";
+
 function Cover() {
+  const [register] = useRegisterMutation();
+  const [name, setName] = React.useState("");
+  const [user, setUser] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [masterU, setMasterU] = React.useState("");
+  const [masterP, setMasterP] = React.useState("");
+
+  const handleInputChange = (input, value) => {
+    if (input === "name") {
+      setName(value);
+    } else if (input === "user") {
+      setUser(value);
+    } else if (input === "password") {
+      setPassword(value);
+    } else if (input === "masterU") {
+      setMasterU(value);
+    } else {
+      setMasterP(value);
+    }
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await register({ name, user, password, masterU, masterP });
+      console.log(result);
+    } catch (error) {}
+  };
   return (
     <CoverLayout image={bgImage}>
       <Card>
@@ -48,63 +81,83 @@ function Cover() {
           textAlign="center"
         >
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-            Join us today
+            Registrar nuevo usuario
           </MDTypography>
           <MDTypography display="block" variant="button" color="white" my={1}>
-            Enter your email and password to register
+            Ingresa el nombre completo, email y contraseña para registrar
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="text" label="Name" variant="standard" fullWidth />
+              <MDInput
+                type="text"
+                label="Nombre completo"
+                variant="standard"
+                value={name}
+                required
+                fullWidth
+                onChange={(e) => {
+                  handleInputChange("name", e.target.value);
+                }}
+              />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" variant="standard" fullWidth />
+              <MDInput
+                type="email"
+                label="Usuario"
+                variant="standard"
+                value={user}
+                required
+                fullWidth
+                onChange={(e) => {
+                  handleInputChange("user", e.target.value);
+                }}
+              />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" variant="standard" fullWidth />
+              <MDInput
+                type="password"
+                label="Password"
+                variant="standard"
+                value={password}
+                required
+                fullWidth
+                onChange={(e) => {
+                  handleInputChange("password", e.target.value);
+                }}
+              />
             </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
-              <Checkbox />
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-              >
-                &nbsp;&nbsp;I agree the&nbsp;
-              </MDTypography>
-              <MDTypography
-                component="a"
-                href="#"
-                variant="button"
-                fontWeight="bold"
-                color="info"
-                textGradient
-              >
-                Terms and Conditions
-              </MDTypography>
+            <MDBox mb={2}>
+              <MDInput
+                type="email"
+                label="Master-User"
+                variant="standard"
+                value={masterU}
+                required
+                fullWidth
+                onChange={(e) => {
+                  handleInputChange("masterU", e.target.value);
+                }}
+              />
+            </MDBox>
+            <MDBox mb={2}>
+              <MDInput
+                type="password"
+                label="Master-Password"
+                variant="standard"
+                value={masterP}
+                required
+                fullWidth
+                onChange={(e) => {
+                  handleInputChange("masterP", e.target.value);
+                }}
+              />
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
-                sign in
+              <MDButton variant="gradient" color="info" fullWidth onClick={handleRegister}>
+                Registrar
               </MDButton>
-            </MDBox>
-            <MDBox mt={3} mb={1} textAlign="center">
-              <MDTypography variant="button" color="text">
-                Already have an account?{" "}
-                <MDTypography
-                  component={Link}
-                  to="/authentication/sign-in"
-                  variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                >
-                  Sign In
-                </MDTypography>
-              </MDTypography>
             </MDBox>
           </MDBox>
         </MDBox>

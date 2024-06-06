@@ -56,7 +56,10 @@ import brandDark from "assets/images/logo-ct-dark.png";
 import SignIn from "layouts/authentication/sign-in";
 import PrivateRoute from "layouts/authentication/middleware/middleware";
 
+import { useAuthStore } from "./zustand/authStore.ts";
+
 export default function App() {
+  const name = useAuthStore((state) => state.name);
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -181,8 +184,7 @@ export default function App() {
         <>
           <Sidenav
             color={sidenavColor}
-            brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="Centro de control RERVA"
+            brandName={name}
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
