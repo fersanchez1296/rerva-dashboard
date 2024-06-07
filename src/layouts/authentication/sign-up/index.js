@@ -42,7 +42,6 @@ function Cover() {
   const [name, setName] = React.useState("");
   const [user, setUser] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [masterU, setMasterU] = React.useState("");
   const [masterP, setMasterP] = React.useState("");
 
   const handleInputChange = (input, value) => {
@@ -52,8 +51,6 @@ function Cover() {
       setUser(value);
     } else if (input === "password") {
       setPassword(value);
-    } else if (input === "masterU") {
-      setMasterU(value);
     } else {
       setMasterP(value);
     }
@@ -62,9 +59,16 @@ function Cover() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const result = await register({ name, user, password, masterU, masterP });
+      const result = await register({ name, user, password, masterP });
       console.log(result);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setName("");
+      setUser("");
+      setPassword("");
+      setMasterP("");
+    }
   };
   return (
     <CoverLayout image={bgImage}>
@@ -125,19 +129,6 @@ function Cover() {
                 fullWidth
                 onChange={(e) => {
                   handleInputChange("password", e.target.value);
-                }}
-              />
-            </MDBox>
-            <MDBox mb={2}>
-              <MDInput
-                type="email"
-                label="Master-User"
-                variant="standard"
-                value={masterU}
-                required
-                fullWidth
-                onChange={(e) => {
-                  handleInputChange("masterU", e.target.value);
                 }}
               />
             </MDBox>

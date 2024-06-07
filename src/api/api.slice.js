@@ -38,6 +38,18 @@ export const apiSlice = createApi({
         method: "GET",
       }),
     }),
+    getAuthors: builder.query({
+      query: () => ({
+        url: `/autores`,
+        method: "GET",
+      }),
+    }),
+    getUsers: builder.query({
+      query: () => ({
+        url: `/usuarios`,
+        method: "GET",
+      }),
+    }),
     getHistorial: builder.query({
       query: () => ({
         url: `/getHistorial`,
@@ -102,4 +114,6 @@ export const {
   useLoginMutation,
   useLogoutMutation,
   useRegisterMutation,
+  useGetAuthorsQuery,
+  useGetUsersQuery,
 } = apiSlice;

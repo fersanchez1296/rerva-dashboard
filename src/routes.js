@@ -40,6 +40,8 @@ import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
 import Historial from "layouts/historial";
 import Documentos from "layouts/documentos";
+import Autores from "layouts/autores";
+import Usuarios from "layouts/users";
 import Billing from "layouts/billing";
 import RTL from "layouts/rtl";
 import Notifications from "layouts/notifications";
@@ -84,14 +86,22 @@ const routes = [
     route: "/documentos",
     component: <Documentos />,
   },
-  // {
-  //   type: "collapse",
-  //   name: "Notificaciones ejemplos",
-  //   key: "notificaciones",
-  //   icon: <Icon fontSize="small">grading</Icon>,
-  //   route: "/notifications",
-  //   component: <Notifications />,
-  // },
+  {
+    type: "collapse",
+    name: "Autores",
+    key: "autores",
+    icon: <Icon fontSize="small">record_voice_over_icon</Icon>,
+    route: "/Autores",
+    component: <Autores />,
+  },
+  {
+    type: "collapse",
+    name: "Subscriptores",
+    key: "subs",
+    icon: <Icon fontSize="small">subscriptions</Icon>,
+    route: "/Autores",
+    component: <Notifications />,
+  },
   {
     type: "collapse",
     name: "Reportes",
@@ -104,14 +114,22 @@ const routes = [
     type: "collapse",
     name: "Registrar usuario",
     key: "sign-up",
-    icon: <Icon fontSize="small">personAddAlt</Icon>,
+    icon: <Icon fontSize="small">person_add_alt</Icon>,
     route: "/register",
     component: <SignUp />,
   },
   {
     type: "collapse",
+    name: "Eliminar usuario",
+    key: "eliminar-usuario",
+    icon: <Icon fontSize="small">person_remove</Icon>,
+    route: "/user-delete",
+    component: <Usuarios />,
+  },
+  {
+    type: "collapse",
     name: "Cerrar Sesión",
-    key: "sign-up",
+    key: "cerrar-sesion",
     icon: <Icon fontSize="small">logoutIcon</Icon>,
     route: "/logout",
     component: <Logout />,
