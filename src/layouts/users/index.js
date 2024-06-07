@@ -12,7 +12,7 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 import usuariosTableData from "layouts/users/data/usuariosTableData";
 //Add-Edit-Document
-import AddEditDocument from "components/AddEditDocument/AddEditDocument";
+import AddEditUsers from "./components/addEditUsers/AddEditUsers";
 import DeleteDocument from "components/AddEditDocument/DeleteDocument";
 function Usuarios() {
   const { data: dt, isLoading, isFetching, refetch } = useGetUsersQuery();
@@ -134,7 +134,7 @@ function Usuarios() {
         </MDBox>
         <Footer />
       </DashboardLayout>
-      <AddEditDocument
+      <AddEditUsers
         openBool={isDialogOpen}
         handleAceptarCerrar={handleAceptarCerrar}
         objeto={objetoEncontrado === undefined ? emptyInfo : objetoEncontrado}

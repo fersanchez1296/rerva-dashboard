@@ -25,14 +25,14 @@ import MDBox from "components/MDBox";
 
 // Material Dashboard 2 React example components
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import PageLayout from "examples/LayoutContainers/PageLayout";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 
 // Authentication layout components
 import Footer from "layouts/authentication/components/Footer";
 
 function CoverLayout({ coverHeight, image, children }) {
   return (
-    <PageLayout>
+    <DashboardLayout>
       <DefaultNavbar
         action={{
           type: "external",
@@ -69,7 +69,7 @@ function CoverLayout({ coverHeight, image, children }) {
           </Grid>
         </Grid>
       </MDBox>
-    </PageLayout>
+    </DashboardLayout>
   );
 }
 

@@ -28,16 +28,18 @@ import { newDocumentFillsInterface } from "assets/interfaces/newDocumentFills.in
 import AutoresCard from "./autoresCard/Index";
 import AreasCard from "./areasCard/Index";
 import DocumentosCard from "./documentosCard/Index";
-
+//Layout
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const AddEditDocument = ({ openBool, handleAceptarCerrar, objeto }) => {
-  console.log(objeto);
   const [addDocument, setAddDocument] = React.useState(newDocumentFillsInterface);
   const { newDocument } = newDocumentStore();
   const [updateSolicitud] = useUpdateSolicitudMutation();
+  const [fullWidth, setFullWidth] = React.useState(true);
+  const [maxWidth, setMaxWidth] = React.useState("xl");
 
   useEffect(() => {
     newDocument.setField("Autores", objeto.Autores);
@@ -112,7 +114,8 @@ const AddEditDocument = ({ openBool, handleAceptarCerrar, objeto }) => {
   return (
     <React.Fragment>
       <Dialog
-        fullScreen
+        fullWidth={fullWidth}
+        maxWidth={maxWidth}
         open={openBool}
         onClose={handleAceptarCerrar}
         TransitionComponent={Transition}

@@ -29,6 +29,7 @@ let selectedId = "";
 export default function data(dt, onAceptarClick, onAceptarDeleteClick) {
   return {
     columns: [
+      { Header: "Acción 2", accessor: "accion_2", align: "center" },
       { Header: "Acción 1", accessor: "accion_1", align: "center" },
       { Header: "ID", accessor: "id", width: "35%", align: "left" },
       { Header: "Nombre", accessor: "nombre", width: "35%", align: "left" },
@@ -49,6 +50,21 @@ export default function data(dt, onAceptarClick, onAceptarDeleteClick) {
         >
           <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
             Eliminar
+          </MDTypography>
+        </MDButton>
+      ),
+      accion_2: (
+        <MDButton
+          color={"info"}
+          variant={"contained"}
+          onClick={() => {
+            selectedId = el._id;
+            newOrEdit = "Editar";
+            onAceptarClick();
+          }}
+        >
+          <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
+            Editar
           </MDTypography>
         </MDButton>
       ),

@@ -120,9 +120,9 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Eliminar usuario",
-    key: "eliminar-usuario",
-    icon: <Icon fontSize="small">person_remove</Icon>,
+    name: "Usuarios",
+    key: "usuarios",
+    icon: <Icon fontSize="small">people_icon</Icon>,
     route: "/user-delete",
     component: <Usuarios />,
   },
