@@ -8,18 +8,26 @@ export const apiSlice = createApi({
     baseUrl: "http://localhost:4000/api/",
     credentials: "include",
   }),
-  tagTypes: ["Solicitudes", "Historial"],
+  tagTypes: ["Solicitudes", "Historial", "Usuarios"],
   endpoints: (builder) => ({
     getSolicitudes: builder.query({
       query: () => ({
-        url: `/getSolicitudes`,
+        url: `/solicitudes`,
         method: "GET",
       }),
       providesTags: ["Solicitudes"],
     }),
-    updateSolicitud: builder.mutation({
+    aceptarSolicitud: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/updateSolicitud/${id}`,
+        url: `/solicitud/aceptar/${id}`,
+        body: data,
+        method: "PUT",
+      }),
+      invalidatesTags: ["Solicitudes"],
+    }),
+    rechazarSolicitud: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/solicitud/rechazar/${id}`,
         body: data,
         method: "PUT",
       }),
@@ -27,7 +35,7 @@ export const apiSlice = createApi({
     }),
     deleteSolicitud: builder.mutation({
       query: ({ id }) => ({
-        url: `/deleteSolicitud/${id}`,
+        url: `/solicitud/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Solicitudes"],
@@ -49,6 +57,7 @@ export const apiSlice = createApi({
         url: `/usuarios`,
         method: "GET",
       }),
+      providesTags: ["Usuarios"],
     }),
     getHistorial: builder.query({
       query: () => ({
@@ -79,12 +88,29 @@ export const apiSlice = createApi({
       }),
       providesTags: ["Estadisticas"],
     }),
-    register: builder.mutation({
+    postUser: builder.mutation({
       query: (credentials) => ({
         url: "/register",
         method: "POST",
         body: credentials,
       }),
+      invalidatesTags: ["Usuarios"],
+    }),
+    putUser: builder.mutation({
+      query: (credentials) => ({
+        url: `/usuarios/${credentials.selectedId}`,
+        method: "PUT",
+        body: credentials,
+      }),
+      invalidatesTags: ["Usuarios"],
+    }),
+    deleteUser: builder.mutation({
+      query: (credentials) => ({
+        url: `/usuarios/${credentials.selectedId}`,
+        method: "DELETE",
+        body: credentials,
+      }),
+      invalidatesTags: ["Usuarios"],
     }),
     login: builder.mutation({
       query: (credentials) => ({
@@ -99,13 +125,23 @@ export const apiSlice = createApi({
         method: "POST",
       }),
     }),
+    //eliminar esta
+    updateSolicitud: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/updateSolicitud/${id}`,
+        body: data,
+        method: "PUT",
+      }),
+      invalidatesTags: ["Solicitudes"],
+    }),
   }),
   keepUnusedDataFor: 300,
 });
 
 export const {
   useGetSolicitudesQuery,
-  useUpdateSolicitudMutation,
+  useAceptarSolicitudMutation,
+  useRechazarSolicitudMutation,
   useGetDocumentsQuery,
   useGetHistorialQuery,
   useBusquedasMutation,
@@ -113,7 +149,10 @@ export const {
   useDeleteSolicitudMutation,
   useLoginMutation,
   useLogoutMutation,
-  useRegisterMutation,
+  usePostUserMutation,
+  usePutUserMutation,
+  useDeleteUserMutation,
   useGetAuthorsQuery,
   useGetUsersQuery,
+  useUpdateSolicitudMutation,
 } = apiSlice;

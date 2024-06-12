@@ -37,7 +37,7 @@ Coded by www.creative-tim.com
 
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
+import Solicitudes from "layouts/solicitudes";
 import Historial from "layouts/historial";
 import Documentos from "layouts/documentos";
 import Autores from "layouts/autores";
@@ -68,7 +68,7 @@ const routes = [
     key: "solicitudes",
     icon: <Icon fontSize="small">notifications</Icon>,
     route: "/solicitudes",
-    component: <Tables />,
+    component: <Solicitudes />,
   },
   {
     type: "collapse",
@@ -112,18 +112,10 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Registrar usuario",
-    key: "sign-up",
-    icon: <Icon fontSize="small">person_add_alt</Icon>,
-    route: "/register",
-    component: <SignUp />,
-  },
-  {
-    type: "collapse",
     name: "Usuarios",
     key: "usuarios",
     icon: <Icon fontSize="small">people_icon</Icon>,
-    route: "/user-delete",
+    route: "/Usuarios",
     component: <Usuarios />,
   },
   {

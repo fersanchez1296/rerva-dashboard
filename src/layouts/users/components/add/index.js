@@ -1,89 +1,67 @@
-import React, { useEffect, useState } from "react";
-//proptypes
-import PropTypes from "prop-types";
+import React from "react";
 //mui library component
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import ListItem from "@mui/material/ListItem";
-import List from "@mui/material/List";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
-import WarningIcon from "@mui/icons-material/Warning";
-import Grid from "@mui/material/Unstable_Grid2";
-import SaveIcon from "@mui/icons-material/Save";
 // Material Dashboard 2 React components
-import MDAlert from "components/MDAlert";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
-//interface
-import { userFillsInterface } from "assets/interfaces/newUserFills.interface.ts";
 //api
-import { useRegisterMutation } from "../../../../api/api.slice";
+import { usePostUserMutation } from "../../../../api/api.slice";
 //store
-import { newUserStore } from "../../../../zustand/newUser.store.ts";
+import { useDialogStore, useUserStore } from "layouts/users/context/index.ts";
+//store snackbar
+import { useSnackbarStore } from "../../../../zustand/snackbarStore.ts";
 //Layout
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
 });
 
-const AddEditUsers = ({ openBool, handleAceptarCerrar, objeto }) => {
-  console.log(objeto);
-  const [addUser, setAddUser] = React.useState(userFillsInterface);
-  const { userStore } = newUserStore();
-  const [register] = useRegisterMutation();
-  const [name, setName] = React.useState("");
-  const [user, setUser] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [masterP, setMasterP] = React.useState("");
+const Add = () => {
+  //API hook
+  const [postUser] = usePostUserMutation();
+  //store variables
+  const isWindowOpen = useDialogStore((state) => state.isWindowOpen);
+  const closeWindow = useDialogStore((state) => state.closeWindow);
+  const name = useUserStore((state) => state.name);
+  const setName = useUserStore((state) => state.setName);
+  const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
+  const password = useUserStore((state) => state.password);
+  const setPassword = useUserStore((state) => state.setPassword);
+  const masterPassword = useUserStore((state) => state.masterPassword);
+  const setMasterPassword = useUserStore((state) => state.setMasterPassword);
+  const resetValues = useUserStore((state) => state.resetValues);
+  //local states
   const [fullWidth, setFullWidth] = React.useState(true);
-  const [maxWidth, setMaxWidth] = React.useState("xl");
+  const [maxWidth, setMaxWidth] = React.useState("md");
+  //snackbar
+  const { openSuccessSB, openErrorSB } = useSnackbarStore();
 
-  useEffect(() => {
-    userStore.setName(objeto.nombre);
-    userStore.setUser(objeto.user);
-  }, [openBool]);
-
-  useEffect(() => {
-    setAddUser({
-      ...addUser,
-      nombre: userStore.nombre,
-      user: userStore.user,
-    });
-  }, [userStore]);
-
-  const handleInputChange = (input, value) => {
-    if (input === "name") {
-      setName(value);
-    } else if (input === "user") {
-      setUser(value);
-    } else if (input === "password") {
-      setPassword(value);
-    } else {
-      setMasterP(value);
-    }
-  };
-
-  const handleRegister = async (e) => {
+  const createUser = async (e) => {
     e.preventDefault();
     try {
-      const result = await register({ name, user, password, masterP });
-      console.log(result);
+      const result = await postUser({ name, user, password, masterPassword });
+      if (result.data && result.data.status === 200) {
+        openSuccessSB(result.data.message, `Status: ${result.data.status}`);
+      } else {
+        openErrorSB(result.error.data.message, `Status: ${result.error.data.status}`);
+      }
     } catch (error) {
+      openErrorSB(error, `Status: 500`);
       console.log(error);
     } finally {
-      setName("");
-      setUser("");
-      setPassword("");
-      setMasterP("");
+      resetValues();
+      closeWindow();
     }
   };
 
@@ -92,8 +70,8 @@ const AddEditUsers = ({ openBool, handleAceptarCerrar, objeto }) => {
       <Dialog
         fullWidth={fullWidth}
         maxWidth={maxWidth}
-        open={openBool}
-        onClose={handleAceptarCerrar}
+        open={isWindowOpen}
+        onClose={() => closeWindow()}
         TransitionComponent={Transition}
       >
         <AppBar sx={{ position: "relative" }}>
@@ -101,7 +79,7 @@ const AddEditUsers = ({ openBool, handleAceptarCerrar, objeto }) => {
             <IconButton
               edge="start"
               color="inherit"
-              onClick={handleAceptarCerrar}
+              onClick={() => closeWindow()}
               aria-label="close"
             >
               <CloseIcon />
@@ -144,11 +122,11 @@ const AddEditUsers = ({ openBool, handleAceptarCerrar, objeto }) => {
                     type="text"
                     label="Nombre completo"
                     variant="standard"
-                    value={userStore.name}
+                    value={name}
                     required
                     fullWidth
                     onChange={(e) => {
-                      handleInputChange("name", e.target.value);
+                      setName(e.target.value);
                     }}
                   />
                 </MDBox>
@@ -157,11 +135,11 @@ const AddEditUsers = ({ openBool, handleAceptarCerrar, objeto }) => {
                     type="email"
                     label="Usuario"
                     variant="standard"
-                    value={userStore.user}
+                    value={user}
                     required
                     fullWidth
                     onChange={(e) => {
-                      handleInputChange("user", e.target.value);
+                      setUser(e.target.value);
                     }}
                   />
                 </MDBox>
@@ -174,7 +152,7 @@ const AddEditUsers = ({ openBool, handleAceptarCerrar, objeto }) => {
                     required
                     fullWidth
                     onChange={(e) => {
-                      handleInputChange("password", e.target.value);
+                      setPassword(e.target.value);
                     }}
                   />
                 </MDBox>
@@ -183,16 +161,21 @@ const AddEditUsers = ({ openBool, handleAceptarCerrar, objeto }) => {
                     type="password"
                     label="Master-Password"
                     variant="standard"
-                    value={masterP}
+                    value={masterPassword}
                     required
                     fullWidth
                     onChange={(e) => {
-                      handleInputChange("masterP", e.target.value);
+                      setMasterPassword(e.target.value);
                     }}
                   />
                 </MDBox>
                 <MDBox mt={4} mb={1}>
-                  <MDButton variant="gradient" color="info" fullWidth onClick={handleRegister}>
+                  <MDButton
+                    variant="gradient"
+                    color="info"
+                    onClick={(e) => createUser(e)}
+                    fullWidth
+                  >
                     Registrar
                   </MDButton>
                 </MDBox>
@@ -205,10 +188,4 @@ const AddEditUsers = ({ openBool, handleAceptarCerrar, objeto }) => {
   );
 };
 
-export default React.memo(AddEditUsers);
-
-AddEditUsers.propTypes = {
-  openBool: PropTypes.bool.isRequired,
-  handleAceptarCerrar: PropTypes.func,
-  objeto: PropTypes.object,
-};
+export default React.memo(Add);

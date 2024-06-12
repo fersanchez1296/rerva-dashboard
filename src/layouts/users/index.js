@@ -10,23 +10,24 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
-import usuariosTableData from "layouts/users/data/usuariosTableData";
-//Add-Edit-Document
-import AddEditUsers from "./components/addEditUsers/AddEditUsers";
-import DeleteDocument from "components/AddEditDocument/DeleteDocument";
+import UsuariosTableData from "layouts/users/data/usuariosTableData";
+//Add-Edit-Delete User
+import Add from "./components/add";
+import Edit from "./components/edit";
+import Delete from "./components/delete";
+//store
+import { useDialogStore, useUserStore } from "./context/index.ts";
+//snackbar
+import SuccessSB from "components/SuccessSnackbar";
+import ErrorSB from "components/ErrorSnackbar";
 function Usuarios() {
+  const openAlert = useDialogStore((state) => state.openAlert);
+  const openWindow = useDialogStore((state) => state.openWindow);
+  const openWindowEdit = useDialogStore((state) => state.openWindowEdit);
+  const setSelectedId = useUserStore((state) => state.setSelectedId);
+  const setName = useUserStore((state) => state.setName);
+  const setUser = useUserStore((state) => state.setUser);
   const { data: dt, isLoading, isFetching, refetch } = useGetUsersQuery();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  let emptyInfo = {
-    _id: 0,
-    Autor: "",
-    Título: "",
-    Email: "",
-    Status: "",
-    ApprovalStatus: "",
-    Link: "",
-  };
 
   if (isLoading || isFetching) {
     return <Spiner showspiner />;
@@ -40,32 +41,14 @@ function Usuarios() {
     refetch();
   };
 
-  const handleAceptarClick = () => {
-    setIsDialogOpen(true);
-  };
-  const handleAceptarCerrar = () => {
-    setIsDialogOpen(false);
-  };
-
-  const handleAceptardeleteClick = () => {
-    setIsDeleteDialogOpen(true);
-  };
-  const handleAceptarCerrardelete = () => {
-    setIsDeleteDialogOpen(false);
-  };
-
-  const { columns, rows, newOrEdit, selectedId } = usuariosTableData(
+  const { columns, rows } = UsuariosTableData(
     dt,
-    handleAceptarClick,
-    handleAceptardeleteClick
+    openWindowEdit,
+    openAlert,
+    setSelectedId,
+    setName,
+    setUser
   );
-  const objetoEncontrado = { ...dt.find((objeto) => objeto._id === selectedId) };
-
-  if (objetoEncontrado !== undefined) {
-    objetoEncontrado.NewDocument = newOrEdit;
-  } else {
-    objetoEncontrado = emptyInfo;
-  }
   return (
     <>
       <DashboardLayout>
@@ -75,7 +58,7 @@ function Usuarios() {
           pb={3}
           style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
         >
-          <MDButton color={"success"} variant={"contained"} onClick={handleAceptarClick}>
+          <MDButton color={"success"} variant={"contained"} onClick={() => openWindow()}>
             <MDTypography
               component="a"
               href="#"
@@ -125,7 +108,6 @@ function Usuarios() {
                     entriesPerPage={false}
                     showTotalEntries={false}
                     noEndBorder
-                    onAceptarClick={handleAceptarClick}
                   />
                 </MDBox>
               </Card>
@@ -134,16 +116,11 @@ function Usuarios() {
         </MDBox>
         <Footer />
       </DashboardLayout>
-      <AddEditUsers
-        openBool={isDialogOpen}
-        handleAceptarCerrar={handleAceptarCerrar}
-        objeto={objetoEncontrado === undefined ? emptyInfo : objetoEncontrado}
-      />
-      <DeleteDocument
-        openBool={isDeleteDialogOpen}
-        handleAceptarCerrar={handleAceptarCerrardelete}
-        deleteById={selectedId.id}
-      />
+      <Add />
+      <Edit />
+      <Delete />
+      <SuccessSB />
+      <ErrorSB />
     </>
   );
 }

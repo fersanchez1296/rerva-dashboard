@@ -21,11 +21,7 @@ import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 import MDBadge from "components/MDBadge";
 
-export default function data(dt, onAceptarClick, setDocumentNote) {
-  const handleAceptarClick = (value) => {
-    setDocumentNote(value);
-    onAceptarClick();
-  };
+export default function data(dt, openWindow, setNotas) {
   const renderButtonIfNotas = (value) => {
     if (value === "Sin Notas") {
       return (
@@ -39,7 +35,8 @@ export default function data(dt, onAceptarClick, setDocumentNote) {
           color={"info"}
           variant={"contained"}
           onClick={() => {
-            handleAceptarClick(value);
+            setNotas(value);
+            openWindow();
           }}
         >
           <MDTypography component="a" variant="caption" color="white" fontWeight="medium">
@@ -51,6 +48,7 @@ export default function data(dt, onAceptarClick, setDocumentNote) {
   };
   return {
     columns: [
+      { Header: "Evaluador", accessor: "evaluador", align: "center" },
       { Header: "Status", accessor: "status", align: "center" },
       { Header: "Solicitud creada", accessor: "solicitud_creada", align: "center" },
       { Header: "Solicitud terminada", accessor: "solicitud_terminada", align: "center" },
@@ -59,10 +57,16 @@ export default function data(dt, onAceptarClick, setDocumentNote) {
       { Header: "Título documento", accessor: "titulo_documento", align: "left" },
       { Header: "Email", accessor: "email", align: "center" },
       { Header: "Link", accessor: "link", align: "center" },
+      { Header: "Doi", accessor: "doi", align: "center" },
       { Header: "Notas", accessor: "notas", align: "center" },
     ],
 
     rows: dt.map((el) => ({
+      evaluador: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          {el.evaluador}
+        </MDTypography>
+      ),
       status: (
         <MDBox ml={-1}>
           <MDBadge
@@ -112,6 +116,17 @@ export default function data(dt, onAceptarClick, setDocumentNote) {
           fontWeight="medium"
         >
           {el.Link}
+        </MDTypography>
+      ),
+      doi: (
+        <MDTypography
+          component="a"
+          href={el.doi}
+          variant="caption"
+          color="info"
+          fontWeight="medium"
+        >
+          {el.doi}
         </MDTypography>
       ),
       notas: renderButtonIfNotas(el.Notas),

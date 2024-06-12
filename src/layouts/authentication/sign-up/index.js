@@ -35,10 +35,10 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 
 //api
-import { useRegisterMutation } from "../../../api/api.slice";
+import { usePostUserMutation } from "../../../api/api.slice";
 
 function Cover() {
-  const [register] = useRegisterMutation();
+  const [register] = usePostUserMutation();
   const [name, setName] = React.useState("");
   const [user, setUser] = React.useState("");
   const [password, setPassword] = React.useState("");

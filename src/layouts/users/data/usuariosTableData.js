@@ -16,17 +16,9 @@ Coded by www.creative-tim.com
 */
 import React from "react";
 // Material Dashboard 2 React components
-import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
-import MDAvatar from "components/MDAvatar";
-import MDBadge from "components/MDBadge";
-
-// Images
-import team2 from "assets/images/team-2.jpg";
-let newOrEdit = "";
-let selectedId = "";
-export default function data(dt, onAceptarClick, onAceptarDeleteClick) {
+export default function data(dt, openWindow, openAlert, setSelectedId, setName, setUser) {
   return {
     columns: [
       { Header: "Acción 2", accessor: "accion_2", align: "center" },
@@ -43,9 +35,8 @@ export default function data(dt, onAceptarClick, onAceptarDeleteClick) {
           color={"error"}
           variant={"contained"}
           onClick={() => {
-            newOrEdit = "Eliminar";
-            selectedId = el._id;
-            onAceptarDeleteClick();
+            setSelectedId(el._id);
+            openAlert();
           }}
         >
           <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
@@ -58,9 +49,10 @@ export default function data(dt, onAceptarClick, onAceptarDeleteClick) {
           color={"info"}
           variant={"contained"}
           onClick={() => {
-            selectedId = el._id;
-            newOrEdit = "Editar";
-            onAceptarClick();
+            setSelectedId(el._id);
+            setName(el.nombre);
+            setUser(el.user);
+            openWindow();
           }}
         >
           <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
@@ -89,7 +81,5 @@ export default function data(dt, onAceptarClick, onAceptarDeleteClick) {
         </MDTypography>
       ),
     })),
-    newOrEdit: newOrEdit,
-    selectedId: selectedId,
   };
 }

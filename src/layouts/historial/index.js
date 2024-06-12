@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { useGetHistorialQuery } from "api/api.slice";
 import { Spiner } from "components/Spiner/Spiner";
 import Grid from "@mui/material/Grid";
@@ -11,14 +11,16 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 import historialTableData from "layouts/historial/data/historialTableData";
-//Notas
-import { Notas } from "components/Notas/Notas";
+//store
+import { useDialogStore, useHistorialStore } from "./context/index.ts";
+//Notas component
+import Notas from "./components/notas";
 function Historial() {
-  const { data: dt, isLoading, refetch } = useGetHistorialQuery();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [documentNote, setDocumentNote] = React.useState("");
+  const openWindow = useDialogStore((state) => state.openWindow);
+  const setNotas = useHistorialStore((state) => state.setNotas);
+  const { data: dt, isLoading, isFetching, refetch } = useGetHistorialQuery();
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return <Spiner showspiner />;
   }
 
@@ -30,14 +32,7 @@ function Historial() {
     refetch();
   };
 
-  const handleAceptarClick = () => {
-    setIsDialogOpen(true);
-  };
-  const handleAceptarCerrar = () => {
-    setIsDialogOpen(false);
-  };
-
-  const { columns, rows, notas } = historialTableData(dt, handleAceptarClick, setDocumentNote);
+  const { columns, rows } = historialTableData(dt, openWindow, setNotas);
   return (
     <>
       <DashboardLayout>
@@ -90,7 +85,6 @@ function Historial() {
                     entriesPerPage={false}
                     showTotalEntries={false}
                     noEndBorder
-                    onAceptarClick={handleAceptarClick}
                   />
                 </MDBox>
               </Card>
@@ -99,11 +93,7 @@ function Historial() {
         </MDBox>
         <Footer />
       </DashboardLayout>
-      <Notas
-        openBool={isDialogOpen}
-        handleAceptarCerrar={handleAceptarCerrar}
-        notas={documentNote}
-      />
+      <Notas />
     </>
   );
 }

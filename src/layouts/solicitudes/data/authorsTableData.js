@@ -20,12 +20,13 @@ import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 // Images
-let statusSolicitud = {};
 export default function data(
   dt,
-  onAceptarClick,
-  handleAceptarClickRechazar,
-  handleAceptardeleteClick
+  openAlert,
+  setSolicitudFields,
+  setDocumentFields,
+  openWindow,
+  openWindowReject
 ) {
   return {
     columns: [
@@ -46,8 +47,8 @@ export default function data(
           color={"error"}
           variant={"contained"}
           onClick={() => {
-            statusSolicitud.id = el._id;
-            handleAceptardeleteClick();
+            setSolicitudFields("id", el._id);
+            openAlert();
           }}
         >
           <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
@@ -96,9 +97,15 @@ export default function data(
           color={"success"}
           variant={"contained"}
           onClick={() => {
-            statusSolicitud.id = el._id;
-            statusSolicitud.status = "Solicitud Aprovada";
-            onAceptarClick();
+            setSolicitudFields("id", el._id);
+            setSolicitudFields("status", "Solicitud Aprovada");
+            setSolicitudFields("email", el.Email);
+            setSolicitudFields("autor", el.Autor);
+            setDocumentFields("autores", el.Autor);
+            setDocumentFields("titulo", el["Título"]);
+            setDocumentFields("link", el.Link);
+            setDocumentFields("doi", el.DOI);
+            openWindow();
           }}
         >
           <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
@@ -111,9 +118,11 @@ export default function data(
           color={"error"}
           variant={"contained"}
           onClick={() => {
-            statusSolicitud.id = el._id;
-            statusSolicitud.status = "Solicitud Rechazada";
-            handleAceptarClickRechazar();
+            setSolicitudFields("id", el._id);
+            setSolicitudFields("status", "Solicitud Aprovada");
+            setSolicitudFields("email", el.Email);
+            setSolicitudFields("autor", el.Autor);
+            openWindowReject();
           }}
         >
           <MDTypography component="a" href="#" variant="caption" color="white" fontWeight="medium">
@@ -122,7 +131,5 @@ export default function data(
         </MDButton>
       ),
     })),
-
-    solicitudStatus: statusSolicitud,
   };
 }

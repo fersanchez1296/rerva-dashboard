@@ -16,6 +16,9 @@ import MDSnackbar from "components/MDSnackbar";
 import PropTypes from "prop-types";
 //API
 import { useDeleteSolicitudMutation } from "api/api.slice";
+
+//store
+import { DialogStore } from "layouts/users/context/index.ts";
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
@@ -25,7 +28,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-function DeleteDocument({ openBool, handleAceptarCerrar, deleteById }) {
+function DeleteDocument({ deleteById }) {
+  // const isAlertOpen = DialogStore((state) => state.isAlertOpen);
+  // const closeAlert = DialogStore((state) => state.closeAlert);
   const [successSB, setSuccessSB] = React.useState(false);
   const [sbMessage, setSBMessage] = React.useState("");
   const [sbStatus, setSBStatus] = React.useState("");
@@ -76,12 +81,12 @@ function DeleteDocument({ openBool, handleAceptarCerrar, deleteById }) {
         setSBStatus(`Status: ${result.data.status}`);
         setSBMessage(result.data.message);
         openSuccessSB();
-        handleAceptarCerrar();
+        //closeAlert(false);
       } else {
         setSBStatus(`Status: ${result.data.status}`);
         setSBMessage(result.data.message);
         openErrorSB();
-        handleAceptarCerrar();
+        //closeAlert(false);
       }
     } catch (error) {
       console.log(error);
@@ -91,16 +96,16 @@ function DeleteDocument({ openBool, handleAceptarCerrar, deleteById }) {
   return (
     <React.Fragment>
       <BootstrapDialog
-        onClose={handleAceptarCerrar}
+        //onClose={() => closeAlert()}
         aria-labelledby="customized-dialog-title"
-        open={openBool}
+        //open={isAlertOpen}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
           ¿Eliminar Documento?
         </DialogTitle>
         <IconButton
           aria-label="close"
-          onClick={handleAceptarCerrar}
+          //onClick={() => closeAlert()}
           sx={{
             position: "absolute",
             right: 8,
@@ -137,7 +142,5 @@ function DeleteDocument({ openBool, handleAceptarCerrar, deleteById }) {
 export default DeleteDocument;
 
 DeleteDocument.propTypes = {
-  openBool: PropTypes.bool.isRequired,
-  handleAceptarCerrar: PropTypes.func,
   deleteById: PropTypes.object,
 };

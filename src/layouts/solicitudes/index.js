@@ -9,51 +9,22 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
-import authorsTableData from "layouts/tables/data/authorsTableData";
-import ScreenDialog from "components/ScreenDialog/ScreenDialog";
-import { RejectScreen } from "components/RejectScreen/RejectScreen";
+import authorsTableData from "layouts/solicitudes/data/authorsTableData";
 import { useGetSolicitudesQuery } from "api/api.slice";
-import DeleteDocument from "components/AddEditDocument/DeleteDocument";
+//accept component
+import Accept from "./components/accept/index";
+import Reject from "./components/reject/index";
+import Delete from "./components/delete/index";
+import { useDialogStore, useSolicitudStore, useDocumentStore } from "./context/index.ts";
 function Tables() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isDialogRejectOpen, setIsRejectDialogOpen] = useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const openAlert = useDialogStore((state) => state.openAlert);
+  const openWindow = useDialogStore((state) => state.openWindow);
+  const openWindowReject = useDialogStore((state) => state.openWindowReject);
+  const setSolicitudFields = useSolicitudStore((state) => state.setSolicitudFields);
+  const setDocumentFields = useDocumentStore((state) => state.setDocumentFields);
   const { data: dt, isLoading, refetch } = useGetSolicitudesQuery();
   const handleClickActualizar = () => {
     refetch();
-  };
-
-  const handleAceptarClick = () => {
-    setIsDialogOpen(true);
-  };
-
-  const handleAceptarCerrar = () => {
-    setIsDialogOpen(false);
-  };
-
-  const handleAceptarClickRechazar = () => {
-    setIsRejectDialogOpen(true);
-  };
-
-  const handleAceptarCerrarRechazar = () => {
-    setIsRejectDialogOpen(false);
-  };
-
-  const handleAceptardeleteClick = () => {
-    setIsDeleteDialogOpen(true);
-  };
-  const handleAceptarCerrardelete = () => {
-    setIsDeleteDialogOpen(false);
-  };
-
-  let emptyInfo = {
-    _id: 0,
-    Autor: "",
-    Título: "",
-    Email: "",
-    Status: "",
-    ApprovalStatus: "",
-    Link: "",
   };
 
   if (isLoading) {
@@ -64,20 +35,14 @@ function Tables() {
     return <div>No data available.</div>;
   }
 
-  const { columns, rows, solicitudStatus } = authorsTableData(
+  const { columns, rows } = authorsTableData(
     dt,
-    handleAceptarClick,
-    handleAceptarClickRechazar,
-    handleAceptardeleteClick
+    openAlert,
+    setSolicitudFields,
+    setDocumentFields,
+    openWindow,
+    openWindowReject
   );
-  const objetoEncontrado = {
-    ...dt.find((objeto) => objeto._id === solicitudStatus.id),
-  };
-  if (objetoEncontrado !== undefined) {
-    objetoEncontrado.ApprovalStatus = solicitudStatus.status;
-  } else {
-    objetoEncontrado = emptyInfo;
-  }
   return (
     <>
       <DashboardLayout>
@@ -130,7 +95,6 @@ function Tables() {
                     entriesPerPage={false}
                     showTotalEntries={false}
                     noEndBorder
-                    onAceptarClick={handleAceptarClick}
                   />
                 </MDBox>
               </Card>
@@ -139,21 +103,9 @@ function Tables() {
         </MDBox>
         <Footer />
       </DashboardLayout>
-      <ScreenDialog
-        openBool={isDialogOpen}
-        handleAceptarCerrar={handleAceptarCerrar}
-        objeto={objetoEncontrado === undefined ? emptyInfo : objetoEncontrado}
-      />
-      <RejectScreen
-        openBool={isDialogRejectOpen}
-        handleAceptarCerrar={handleAceptarCerrarRechazar}
-        objeto={objetoEncontrado === undefined ? emptyInfo : objetoEncontrado}
-      />
-      <DeleteDocument
-        openBool={isDeleteDialogOpen}
-        handleAceptarCerrar={handleAceptarCerrardelete}
-        deleteById={solicitudStatus}
-      />
+      <Accept />
+      <Reject />
+      <Delete />
     </>
   );
 }
